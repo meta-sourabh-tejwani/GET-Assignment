@@ -62,6 +62,35 @@ class HexCalc
 		}
 		return hexaDecimal;
 	}
+	
+	public int hexCompare(String hex1,String hex2)
+	{
+		int hex1len=hex1.length();
+		int hex2len=hex2.length();
+		if (hex1len < hex2len)
+		{
+			return -1;
+		}
+		else if(hex1len > hex2len)
+		{
+			return 1;
+		}
+		else
+		{
+			for(int i=0;i<hex1len;i++)
+			{
+				if(hex1.charAt(i) < hex2.charAt(i))
+				{
+				return -1;
+				}
+				else if(hex1.charAt(i) > hex2.charAt(i))
+				{
+				return 1;
+				}
+			}
+		return 0;		
+		}
+	}
 
 }
 
@@ -78,6 +107,13 @@ public static void main(String...k)
 	System.out.println(hex.subHexaDecimal("7B","12"));
 	System.out.println(hex.mulHexaDecimal("7B","1B"));
 	System.out.println(hex.divHexaDecimal("7B","2"));
-	
+	int check=hex.hexCompare("1BC","1BDE");
+	if(check==0)
+		System.out.println("Hex1 Equal Hex2");
+	else if(check==-1)
+		System.out.println("Hex1 lower then Hex2");
+	else
+		System.out.println("Hex1 greater thaen Hex2");
 }
 }
+
