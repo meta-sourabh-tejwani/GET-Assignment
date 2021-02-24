@@ -1,27 +1,33 @@
 import java.util.*;
-class ShoppingCart
+class ItemInShop
 {
-	private static String[] presentItemName={"shampoo","apple","mango","wheat"};
-	private static int[] presentItemQuantity={12,12,12,12,12};
-	private static float[] presentItemPrice={200,120,70,40,23};
+	public static String[] presentItemName={"shampoo","apple","mango","wheat"};
+	public static int[] presentItemQuantity={12,12,12,12,12};
+	public static float[] presentItemPrice={200,120,70,40,23};
+	
+}
+
+class ShoppingCart
+{	
 	private Map<String,Float> cartItemPrice=new HashMap<>();
 	private Map<String,Integer> cartItemQuantity=new HashMap<>();
 	
+	/*  Add item in cart if item present in shop else showing item not present in shop with required quantity*/
 	public void addItem(String itemName,int itemQuantity)
 	{
-		int flag=0;
-		for(int i=0;i<presentItemName.length;i++)
+		boolean taskComplete=false;
+		for(int i=0;i<ItemInShop.presentItemName.length;i++)
 		{
-			if(presentItemName[i].equals(itemName) && itemQuantity<=presentItemQuantity[i])
+			if(ItemInShop.presentItemName[i].equals(itemName) && itemQuantity<=ItemInShop.presentItemQuantity[i])
 			{
 				cartItemQuantity.put(itemName,itemQuantity);
-				cartItemPrice.put(itemName,presentItemPrice[i]);
-				presentItemQuantity[i]-=itemQuantity;
-				flag=1;
+				cartItemPrice.put(itemName,ItemInShop.presentItemPrice[i]);
+				ItemInShop.presentItemQuantity[i]-=itemQuantity;
+				taskComplete=true;
 				break;
 			}
 		}
-		if(flag==1)
+		if(taskComplete == true)
 		{
 			System.out.println("Item Inserted in cart.....");
 		}
@@ -32,16 +38,16 @@ class ShoppingCart
 			
 	}
 	
-	
+	/* delete item in cart if item added in cart */
 	public void deleteItem(String itemName)
 	{
 		if(cartItemQuantity.containsKey(itemName))
 		{
-			for(int i=0;i<presentItemName.length;i++)
+			for(int i=0;i<ItemInShop.presentItemName.length;i++)
 			{
-				if (presentItemName[i].equals(itemName))
+				if (ItemInShop.presentItemName[i].equals(itemName))
 				{
-					presentItemQuantity[i]+=cartItemQuantity.get(itemName);
+					ItemInShop.presentItemQuantity[i]+=cartItemQuantity.get(itemName);
 					break;
 				}
 			}
@@ -54,62 +60,81 @@ class ShoppingCart
 		}
 	}
 	
-	
+	/* Display item quantity and price present in shop*/
 	public void itemPresent()
 	{
 		System.out.println("ITEM present in shop.....");
-		System.out.println("Item     price        quantity");
-		for(int i=0;i<presentItemName.length;i++)
+		String item=String.format("%10s","ITEM");
+		String price=String.format("%10s","PRICE");
+		String quantity=String.format("%10s","QUANTITY");
+		System.out.println(item+price+quantity);
+		for(int i=0;i<ItemInShop.presentItemName.length;i++)
 		{
-			System.out.println(presentItemName[i]+"      "+presentItemPrice[i]+"         "+presentItemQuantity[i]);
+			item=String.format("%10s",ItemInShop.presentItemName[i]);
+			price=String.format("%10s",ItemInShop.presentItemPrice[i]);
+			quantity=String.format("%10s",ItemInShop.presentItemQuantity[i]);
+			System.out.println(item+price+quantity);
 		}
 	}
 	
+	/* Generate bill those item who present in Cart*/
 	public void generateBill()
 	{
 		float total=0f;
-		System.out.println("Item     price        quantity");
-		for(String item:cartItemPrice.keySet())
+		String item=String.format("%10s","ITEM");
+		String price=String.format("%10s","PRICE");
+		String quantity=String.format("%10s","QUANTITY");
+		System.out.println(item+price+quantity);
+		for(String itemincart:cartItemPrice.keySet())
 		{
-			float price=cartItemPrice.get(item);
-			int quantity=cartItemQuantity.get(item);
-			float itemprice=price*quantity;
-			total+=itemprice;
-			System.out.println(item+"      "+itemprice+"         "+quantity);
+			float priceitem=cartItemPrice.get(itemincart);
+			int quantityitem=cartItemQuantity.get(itemincart);
+			float purchasetotalPrice=priceitem*quantityitem;
+			total+=purchasetotalPrice;
+			item=String.format("%10s",itemincart);
+			price=String.format("%10s",purchasetotalPrice);
+			quantity=String.format("%10s",quantityitem);
+			System.out.println(item+price+quantity);
 		}
 		System.out.println("Total payment: "+total);
 	}
 	
+	/* Display item and quantity present in cart*/
 	public void itemInCart()
 	{
-		System.out.println("Item            quantity");
-		for(String item:cartItemQuantity.keySet())
+		String item=String.format("%10s","ITEM");
+		String quantity=String.format("%10s","QUANTITY");
+		for(String iteminCart:cartItemQuantity.keySet())
 		{
-			System.out.println(item+"           "+cartItemQuantity.get(item));
+			item=String.format("%10s",iteminCart);
+			quantity=String.format("%10s",cartItemQuantity.get(iteminCart));
+			System.out.println(item+quantity);
 		}
 	}
 	
+	/*update cart item and quantity if require quantity present in shop*/
 	public void updateItem(String itemName,int newQuantity)
 	{
 		if(cartItemQuantity.containsKey(itemName))
 		{
-			int flag=0;
-			for(int i=0;i<presentItemName.length;i++)
+			boolean updatedtask=false;
+			for(int i=0;i<ItemInShop.presentItemName.length;i++)
 			{
-				if(presentItemName[i].equals(itemName))
+				if(ItemInShop.presentItemName[i].equals(itemName))
 				{
 					int addQuantity=cartItemQuantity.get(itemName);
-					if(addQuantity+presentItemQuantity[i]>=newQuantity)
+					if(addQuantity+ItemInShop.presentItemQuantity[i]>=newQuantity)
 					{
-						presentItemQuantity[i]+=addQuantity;
-						presentItemQuantity[i]-=newQuantity;
+						ItemInShop.presentItemQuantity[i]+=addQuantity;
+						ItemInShop.presentItemQuantity[i]-=newQuantity;
 						cartItemQuantity.replace(itemName, newQuantity);
-						flag=1;
+						
+						updatedtask=true;
 					}
 					break;
 				}
 			}
-			if(flag==0)
+			if(updatedtask == false)
 			{
 				System.out.println("Item Does not update due to shortage of quantity....");
 			}
@@ -185,5 +210,6 @@ public class Assignment1
 					
 			}
 		}while(n!=7);
+		sc.close();
 	}
 }
