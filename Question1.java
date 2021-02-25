@@ -6,7 +6,7 @@ class IntSet
 	{
 		this.set=set;
 	}
-	
+	/*Accept int number and check it is member of set or not*/
 	public boolean isMember(int number)
 	{
 		for(int i=0;i<set.length;i++)
@@ -18,29 +18,25 @@ class IntSet
 		}
 		return false;
 	}
-	
+	/*Accept Subset and check is subset or not*/
 	public boolean isSubSet(IntSet s)
 	{
-		int flag;
+		boolean issubset=false;
 		for(int i=0;i<s.set.length;i++)
 		{
-			flag=0;
 			for(int j=0;j<this.set.length;j++)
 			{
 				if(this.set[i] == s.set[j])
 				{
-					flag=1;
+					issubset=true;
 					break;
 				}
 			}
-			if( flag == 0)
-			{
-				return false;
-			}
 		}
-		return true;
+		return issubset;
 	}
 
+	/*return compliment of set*/
 	public int[] compliment()
 	{
 		int []complimentSet=new int[1000-set.length];
@@ -56,6 +52,7 @@ class IntSet
 		return complimentSet;
 	}
 
+	/* Return union of two sets*/
 	public static int[] union(IntSet s1,IntSet s2)
 	{
 		ArrayList<Integer> se=new ArrayList<>();

@@ -9,24 +9,24 @@ class Poly
 		this.degree=degree;
 		this.cofficient=cofficient;
 	}
-
+	/*return degree of polynomial*/
 	public int getDegree()
 	{
 		return degree;
 	}
 	
-	
+	/*Accept variable value and return evaluteValue*/
 	public float evaluate(float variable)
 	{
-		float f=0;
+		float evaluate=0;
 		for(int i=0;i<=degree;i++)
 		{
-			f+=cofficient[i]*Math.pow(variable,degree-i);
+			evaluate+=cofficient[i]*Math.pow(variable,degree-i);
 		}
-		return f;
+		return evaluate;
 	}
 	
-	
+	/*Add Two Polynomial and return them in array form*/
 	public static int[] addPoly(Poly p1,Poly p2)
 	{
 		int sum[];
@@ -62,6 +62,7 @@ class Poly
 		return sum;
 	}
 	
+	/*Multiplication of Two polynomial and return them in array form*/
 	public static int[] mulPoly(Poly p1,Poly p2)
 	{
 		int d1=p1.getDegree();
