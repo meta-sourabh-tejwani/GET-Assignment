@@ -1,31 +1,35 @@
 import java.lang.Math;
 class HexCalc
 {
+	/*Accept two hexadecimal number and return addition of hexadecimal number in hexadecimal form*/
 	public String addHexaDecimal(String firstHex,String SecondHex)
 	{
 		int addition=hexaToDecimal(firstHex)+hexaToDecimal(SecondHex);
 		return decimalToHexa(addition);
 	}
 	
-
+	/*Accept two hexadecimal number and return subtraction of hexadecimal number in hexadecimal form*/
 	public String subHexaDecimal(String firstHex,String SecondHex)
 	{
 		int sub=Math.abs(hexaToDecimal(firstHex)-hexaToDecimal(SecondHex));
 		return decimalToHexa(sub);
 	}
 	
+	/*Accept two hexadecimal number and return multiplication of hexadecimal number in hexadecimal form*/
 	public String mulHexaDecimal(String firstHex,String SecondHex)
 	{
 		int mul=hexaToDecimal(firstHex)*hexaToDecimal(SecondHex);
 		return decimalToHexa(mul);
 	}
 	
+	/*Accept two hexadecimal number and return division of hexadecimal number in hexadecimal form*/
 	public String divHexaDecimal(String firstHex,String SecondHex)
 	{
 		int div=hexaToDecimal(firstHex)/hexaToDecimal(SecondHex);
 		return decimalToHexa(div);
 	}
 	
+	/*Accept hexadecimal number and return Decimal form*/
 	public int hexaToDecimal(String hexadecimal)
 	{
 		char hexChar[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
@@ -49,6 +53,7 @@ class HexCalc
 		return decimal;
 	}
 	
+	/*Accept decimal number and return HexaDecimal form*/
 	public String decimalToHexa(int decimal)
 	{
 		int remainder;
@@ -63,6 +68,7 @@ class HexCalc
 		return hexaDecimal;
 	}
 	
+	/*Compare two hexadecimal if equal return 0 greater return 1 lesser return -1*/
 	public int hexCompare(String hex1,String hex2)
 	{
 		int hex1len=hex1.length();
