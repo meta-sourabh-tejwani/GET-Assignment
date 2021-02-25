@@ -1,14 +1,8 @@
 import java.util.*;
-class ItemInShop
-{
-	public static String[] presentItemName={"shampoo","apple","mango","wheat"};
-	public static int[] presentItemQuantity={12,12,12,12,12};
-	public static float[] presentItemPrice={200,120,70,40,23};
-	
-}
 
 class ShoppingCart
 {	
+	private ItemInShop itemInShop=new ItemInShop();
 	private Map<String,Float> cartItemPrice=new HashMap<>();
 	private Map<String,Integer> cartItemQuantity=new HashMap<>();
 	
@@ -16,13 +10,15 @@ class ShoppingCart
 	public void addItem(String itemName,int itemQuantity)
 	{
 		boolean taskComplete=false;
-		for(int i=0;i<ItemInShop.presentItemName.length;i++)
+		for(int i=0;i<itemInShop.item.length;i++)
 		{
-			if(ItemInShop.presentItemName[i].equals(itemName) && itemQuantity<=ItemInShop.presentItemQuantity[i])
+			String shopItemName=itemInShop.item[i].getName();
+			int  shopItemQuantity=itemInShop.item[i].getQuantity();
+			if(shopItemName.equals(itemName) && itemQuantity<=shopItemQuantity)
 			{
 				cartItemQuantity.put(itemName,itemQuantity);
-				cartItemPrice.put(itemName,ItemInShop.presentItemPrice[i]);
-				ItemInShop.presentItemQuantity[i]-=itemQuantity;
+				cartItemPrice.put(itemName,itemInShop.item[i].getPrice());
+				itemInShop.item[i].setQuantity(shopItemQuantity-itemQuantity);
 				taskComplete=true;
 				break;
 			}
@@ -43,11 +39,12 @@ class ShoppingCart
 	{
 		if(cartItemQuantity.containsKey(itemName))
 		{
-			for(int i=0;i<ItemInShop.presentItemName.length;i++)
+			for(int i=0;i<itemInShop.item.length;i++)
 			{
-				if (ItemInShop.presentItemName[i].equals(itemName))
+				if (itemInShop.item[i].getName().equals(itemName))
 				{
-					ItemInShop.presentItemQuantity[i]+=cartItemQuantity.get(itemName);
+					int shopQuantity=itemInShop.item[i].getQuantity();
+					itemInShop.item[i].setQuantity(cartItemQuantity.get(itemName)+shopQuantity);
 					break;
 				}
 			}
@@ -68,11 +65,11 @@ class ShoppingCart
 		String price=String.format("%10s","PRICE");
 		String quantity=String.format("%10s","QUANTITY");
 		System.out.println(item+price+quantity);
-		for(int i=0;i<ItemInShop.presentItemName.length;i++)
+		for(int i=0;i<itemInShop.item.length;i++)
 		{
-			item=String.format("%10s",ItemInShop.presentItemName[i]);
-			price=String.format("%10s",ItemInShop.presentItemPrice[i]);
-			quantity=String.format("%10s",ItemInShop.presentItemQuantity[i]);
+			item=String.format("%10s",itemInShop.item[i].getName());
+			price=String.format("%10s",itemInShop.item[i].getPrice());
+			quantity=String.format("%10s",itemInShop.item[i].getQuantity());
 			System.out.println(item+price+quantity);
 		}
 	}
@@ -118,15 +115,15 @@ class ShoppingCart
 		if(cartItemQuantity.containsKey(itemName))
 		{
 			boolean updatedtask=false;
-			for(int i=0;i<ItemInShop.presentItemName.length;i++)
+			for(int i=0;i<itemInShop.item.length;i++)
 			{
-				if(ItemInShop.presentItemName[i].equals(itemName))
+				if(itemInShop.item[i].getName().equals(itemName))
 				{
 					int addQuantity=cartItemQuantity.get(itemName);
-					if(addQuantity+ItemInShop.presentItemQuantity[i]>=newQuantity)
+					int shopQuantity=itemInShop.item[i].getQuantity();
+					if(addQuantity+shopQuantity>=newQuantity)
 					{
-						ItemInShop.presentItemQuantity[i]+=addQuantity;
-						ItemInShop.presentItemQuantity[i]-=newQuantity;
+						itemInShop.item[i].setQuantity(addQuantity+shopQuantity-newQuantity);
 						cartItemQuantity.replace(itemName, newQuantity);
 						
 						updatedtask=true;
