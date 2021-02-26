@@ -47,30 +47,30 @@ class JobScheduler
 	}
 	
 	//Return completion Time
-	public int[] returncompleteTime()
+	public int[] getCompletionTime()
 	{
 		return completionTime;
 	}
 	
 	//return Waiting Time
-	public int[] returnwaitingTime()
+	public int[] getWaitingTime()
 	{
 		return waitingTime;
 	}
 	
 	//Return TurnAround Time
-	public int[] returnAroundTime()
+	public int[] getTurnAroundTime()
 	{
 		return turnAroundTime;
 	}
 	//Return Maximum Waited Time
-	public int maxWaitedTime()
+	public int getMaxWaitedTime()
 	{
 		return maxWaitingTime;
 	}
 	
 	//Return Average waited Time
-	public int avgWaitingTime()
+	public int getAverageWaitingTime()
 	{
 		return averageWaitingTime;
 	}
@@ -92,30 +92,30 @@ public class QuestionSecond {
 			process[i][1]=sc.nextInt();
 		}
 		JobScheduler job=new JobScheduler(process);
-		int waiting[]=job.returnwaitingTime();
-		int TurnAround[]=job.returnAroundTime();
-		int completion[]=job.returncompleteTime();
-		String processor=String.format("%15s","   Process");
-		String arriving=String.format("%15s","   Arriving Time");
-		String bursttime=String.format("%15s","   Burst Time");
-		String completiontime=String.format("%15s","   Completion Time");
-		String waitingtime=String.format("%15s","    Waiting Time");
-		String turnaroundtime=String.format("%15s","  TurnAround Time");
+		int waiting[]=job.getWaitingTime();
+		int TurnAround[]=job.getTurnAroundTime();
+		int completion[]=job.getCompletionTime();
+		String processor=String.format("%18s","Process");
+		String arriving=String.format("%18s","Arriving Time");
+		String bursttime=String.format("%18s","Burst Time");
+		String completiontime=String.format("%18s","Completion Time");
+		String waitingtime=String.format("%18s","Waiting Time");
+		String turnaroundtime=String.format("%18s","TurnAround Time");
 		System.out.println(processor+arriving+bursttime+completiontime+waitingtime+turnaroundtime);
 		for(int i=0;i<n;i++)
 		{
 
-			processor=String.format("%15s","P"+(i+1));
-			arriving=String.format("%15s",process[i][0]);
-			bursttime=String.format("%15s",process[i][1]);
-			completiontime=String.format("%15s",completion[i]);
-			waitingtime=String.format("%15s",waiting[i]);
-			turnaroundtime=String.format("%15s",TurnAround[i]);
+			processor=String.format("%16s","P"+(i+1));
+			arriving=String.format("%16s",process[i][0]);
+			bursttime=String.format("%16s",process[i][1]);
+			completiontime=String.format("%16s",completion[i]);
+			waitingtime=String.format("%16s",waiting[i]);
+			turnaroundtime=String.format("%16s",TurnAround[i]);
 			System.out.println(processor+arriving+bursttime+completiontime+waitingtime+turnaroundtime);
 		}
 		
-		System.out.println("Maimum Waiting Time "+job.maxWaitedTime());
-		System.out.println("Average Waiting Time "+job.avgWaitingTime());
+		System.out.println("Maimum Waiting Time "+job.getMaxWaitedTime());
+		System.out.println("Average Waiting Time "+job.getAverageWaitingTime());
 		
 		sc.close();	
 	}

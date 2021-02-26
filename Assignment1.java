@@ -2,30 +2,30 @@ import java.lang.Math;
 class HexCalc
 {
 	/*Accept two hexadecimal number and return addition of hexadecimal number in hexadecimal form*/
-	public String addHexaDecimal(String firstHex,String SecondHex)
+	public String addHexaDecimal(String firstHex,String secondHex)
 	{
-		int addition=hexaToDecimal(firstHex)+hexaToDecimal(SecondHex);
+		int addition=hexaToDecimal(firstHex)+hexaToDecimal(secondHex);
 		return decimalToHexa(addition);
 	}
 	
 	/*Accept two hexadecimal number and return subtraction of hexadecimal number in hexadecimal form*/
-	public String subHexaDecimal(String firstHex,String SecondHex)
+	public String subHexaDecimal(String firstHex,String secondHex)
 	{
-		int sub=Math.abs(hexaToDecimal(firstHex)-hexaToDecimal(SecondHex));
+		int sub=hexaToDecimal(firstHex)-hexaToDecimal(secondHex);
 		return decimalToHexa(sub);
 	}
 	
 	/*Accept two hexadecimal number and return multiplication of hexadecimal number in hexadecimal form*/
-	public String mulHexaDecimal(String firstHex,String SecondHex)
+	public String mulHexaDecimal(String firstHex,String secondHex)
 	{
-		int mul=hexaToDecimal(firstHex)*hexaToDecimal(SecondHex);
+		int mul=hexaToDecimal(firstHex)*hexaToDecimal(secondHex);
 		return decimalToHexa(mul);
 	}
 	
 	/*Accept two hexadecimal number and return division of hexadecimal number in hexadecimal form*/
-	public String divHexaDecimal(String firstHex,String SecondHex)
+	public String divHexaDecimal(String firstHex,String secondHex)
 	{
-		int div=hexaToDecimal(firstHex)/hexaToDecimal(SecondHex);
+		int div=hexaToDecimal(firstHex)/hexaToDecimal(secondHex);
 		return decimalToHexa(div);
 	}
 	
@@ -104,22 +104,22 @@ class HexCalc
 
 
 public class Assignment1 {
-public static void main(String...k)
-{
-	HexCalc hex=new HexCalc();
-	System.out.println(hex.decimalToHexa(123));
-	System.out.println(hex.hexaToDecimal("7B"));
-	System.out.println(hex.addHexaDecimal("7B","7B"));
-	System.out.println(hex.subHexaDecimal("7B","12"));
-	System.out.println(hex.mulHexaDecimal("7B","1B"));
-	System.out.println(hex.divHexaDecimal("7B","2"));
-	int check=hex.hexCompare("1BC","1BDE");
-	if(check==0)
-		System.out.println("Hex1 Equal Hex2");
-	else if(check==-1)
-		System.out.println("Hex1 lower then Hex2");
-	else
-		System.out.println("Hex1 greater thaen Hex2");
-}
+	public static void main(String...k)
+	{ 
+		HexCalc hex=new HexCalc();
+		System.out.println(hex.decimalToHexa(40));
+		System.out.println(hex.hexaToDecimal("7B"));
+		System.out.println(hex.addHexaDecimal("7B","7B"));
+		System.out.println(hex.subHexaDecimal("7B","12"));
+		System.out.println(hex.mulHexaDecimal("7B","1B"));
+		System.out.println(hex.divHexaDecimal("7B","2"));
+		int check=hex.hexCompare("1BC","1BDE");
+		if(check==0)
+			System.out.println("Hex1 Equal Hex2");
+		else if(check==-1)
+			System.out.println("Hex1 lower then Hex2");
+		else
+			System.out.println("Hex1 greater thaen Hex2");
+	}
 }
 
