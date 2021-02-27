@@ -1,17 +1,26 @@
 import java.util.*;
-class IntSet
+final class IntSet
 {
+	private int count=0;
 	private final int set[];
 	public IntSet(int set[])
 	{
-		this.set=set;
+		this.set=new int[1001];
+		for(int i=0;i<set.length;i++)
+		{
+			if(set[i]>=1 && set[i]<=1000)
+			{
+				count++;
+				this.set[set[i]]=1;
+			}
+		}
 	}
 	/*Accept int number and check it is member of set or not*/
 	public boolean isMember(int number)
 	{
-		for(int i=0;i<set.length;i++)
+		if(number>=1 && number<=1000)
 		{
-			if(set[i] == number)
+			if(set[number]==1)
 			{
 				return true;
 			}
@@ -21,49 +30,42 @@ class IntSet
 	/*Accept Subset and check is subset or not*/
 	public boolean isSubSet(IntSet s)
 	{
-		boolean issubset=false;
 		for(int i=0;i<s.set.length;i++)
 		{
-			for(int j=0;j<this.set.length;j++)
+			if(set[s.set[i]]==1)
 			{
-				if(this.set[i] == s.set[j])
-				{
-					issubset=true;
-					break;
-				}
+				return true;
 			}
 		}
-		return issubset;
+		return false;
 	}
 
 	/*return compliment of set*/
-	public int[] compliment()
+	public int[] getComplement()
 	{
-		int []complimentSet=new int[1000-set.length];
+		int []complementSet=new int[1000-count];
 		int j=0;
 		for(int i=1;i<=1000;i++)
 		{
 			if(isMember(i) == false)
 			{
-				complimentSet[j]=i;
+				complementSet[j]=i;
 				j+=1;
 			}
 		}
-		return complimentSet;
+		return complementSet;
 	}
 
 	/* Return union of two sets*/
 	public static int[] union(IntSet s1,IntSet s2)
 	{
 		ArrayList<Integer> se=new ArrayList<>();
-		for(int i=0;i<s1.set.length;i++)
+		for(int i=1;i<=1000;i++)
 		{
-			se.add(s1.set[i]);
-		}
-		for(int i=0;i<s2.set.length;i++)
-		{
-			if( se.contains(s2.set[i]) == false )
-					se.add(s2.set[i]);
+			if(s1.isMember(i) == true || s2.isMember(i) == true)
+			{
+				se.add(i);
+			}
 		}
 		int union[]=new int[se.size()];
 		Collections.sort(se);
@@ -87,7 +89,7 @@ public class Question1 {
 		System.out.println(s1.isMember(20));
 		System.out.println(s1.isMember(4));
 		System.out.println(s1.isSubSet(s2));
-		int compliment[]=s1.compliment();
+		int compliment[]=s1.getComplement();
 		for(int i=0;i<compliment.length;i++)
 		{
 			System.out.print(compliment[i]+" ");
