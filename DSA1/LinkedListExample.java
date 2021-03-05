@@ -13,6 +13,10 @@ class Node<T> {
 		this.next = null;
 	}
 
+	public String toString() {
+		return "node-" + value.toString();
+	}
+
 	public int getPosition() {
 		return position;
 	}
@@ -45,28 +49,41 @@ class LinkedList<T> {
 		head = null;
 	}
 
+	// add element in the list
 	public void addElement(T value) {
 		Node<T> node = new Node<T>(value);
 		if (head == null) {
 			head = node;
 		} else {
-			Node<T> temp = head;
-			while (temp.getNext() != null) {
-				temp = temp.getNext();
+			Node<T> lastNode = head;
+			while (lastNode.getNext() != null) {
+				lastNode = lastNode.getNext();
 			}
-			temp.setNext(node);
+			lastNode.setNext(node);
 		}
 	}
 
-	public void setPosition() {
+	public String toString() {
+		StringBuilder string = new StringBuilder("Linked List-");
 		Node<T> temp = head;
-		int count = 1;
 		while (temp != null) {
-			temp.setPosition(count++);
+			string.append(temp.toString() + ",");
 			temp = temp.getNext();
 		}
+		return string.toString();
 	}
 
+	// set position of each element
+	public void setPosition() {
+		Node<T> retriveNode = head;
+		int count = 0;
+		while (retriveNode != null) {
+			retriveNode.setPosition(count++);
+			retriveNode = retriveNode.getNext();
+		}
+	}
+
+	// display the list element
 	public void display() {
 		Node<T> temp = head;
 		while (temp != null) {
@@ -76,28 +93,30 @@ class LinkedList<T> {
 		System.out.println();
 	}
 
+	// rotate the list with n times from left to right element
 	public void rotate(int left, int right, int n) {
 		int total = right - left + 1;
 		total = (total + n) % total;
-		Node<T> temp1 = head, temp2 = head;
-		while (temp1.getNext().getPosition() != left) {
-			temp1 = temp1.getNext();
+		Node<T> previousLeft = head, PreviousRight = head;
+		while (previousLeft.getNext().getPosition() != left) {
+			previousLeft = previousLeft.getNext();
 		}
-		while (temp2.getNext().getPosition() != right) {
-			temp2 = temp2.getNext();
+		while (PreviousRight.getNext().getPosition() != right) {
+			PreviousRight = PreviousRight.getNext();
 		}
 		while (total != 0) {
-			Node<T> temp3, temp4;
-			temp3 = temp2.getNext();
-			temp2.setNext(temp3.getNext());
-			temp4 = temp1.getNext();
-			temp1.setNext(temp3);
-			temp3.setNext(temp4);
-			temp3 = head;
-			while (temp3.getNext().getValue() != temp2.getValue()) {
-				temp3 = temp3.getNext();
+			Node<T> currentRight, currentLeft;
+			currentRight = PreviousRight.getNext();
+			PreviousRight.setNext(currentRight.getNext());
+			currentLeft = previousLeft.getNext();
+			previousLeft.setNext(currentRight);
+			currentRight.setNext(currentLeft);
+			currentRight = head;
+			while (currentRight.getNext().getValue() != PreviousRight
+					.getValue()) {
+				currentRight = currentRight.getNext();
 			}
-			temp2 = temp3;
+			PreviousRight = currentRight;
 			total--;
 		}
 		setPosition();
@@ -127,7 +146,7 @@ public class LinkedListExample {
 		l.addElement(6);
 		l.addElement(7);
 		l.display();
-		l.rotate(2, 5, 3);
+		l.rotate(5, 6, 5);
 		l.display();
 	}
 }
