@@ -14,11 +14,13 @@ class MultiPolynomial {
 			} else if ((s.charAt(i) >= 'a' && s.charAt(i) <= 'z')
 					|| (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z')) {
 				cofficient = false;
-				if (i < s.length() - 1) {
+				if (i <s.length() - 1) {
 					if (s.charAt(i + 1) >= '0' && s.charAt(i + 1) <= '9') {
 						val = "";
 						continue;
 					} else {
+						if(!val.equals(""))
+							degreeOfVariableList.addElement(Integer.parseInt(val));
 						val = "1";
 					}
 				} else {
@@ -27,7 +29,7 @@ class MultiPolynomial {
 					completeListOfDegree.addElement(degreeOfVariableList);
 					break;
 				}
-				degreeOfVariableList.addElement(Integer.parseInt(val));
+				//degreeOfVariableList.addElement(Integer.parseInt(val));
 				val = "";
 			}
 			if (((s.charAt(i) == '+' || s.charAt(i) == '-') || i == s.length() - 1)
