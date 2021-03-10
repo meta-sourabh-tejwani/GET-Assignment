@@ -11,18 +11,16 @@ public class Unique {
 	 * @return number of unique character
 	 */
 	public static int uniqueCharacter(String string) {
-		try {
+		if(repeat.containsKey(string)){
 			return repeat.get(string);
-		} catch (Exception e) {
+		} else{
 			Map<Character, Character> sameword = new HashMap<>();
 			int count = 0;
 			for (int i = 0; i < string.length(); i++) {
 				char eachcharacter = string.charAt(i);
-				try {
-					if (eachcharacter == sameword.get(eachcharacter)) {
+				if(sameword.containsKey(eachcharacter)){
 						continue;
-					}
-				} catch (Exception e1) {
+					}else{
 					count++;
 					sameword.put(eachcharacter, eachcharacter);
 				}
