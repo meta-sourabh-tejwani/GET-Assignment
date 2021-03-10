@@ -10,7 +10,7 @@ public class MatrixTesting {
 	@BeforeClass
 	public static void setUp() {
 		m1 = new MatrixElement(0, 0, 1);
-		m2 = new MatrixElement(0, 1, 2);
+		m2 = new MatrixElement(1, 1, 1);
 		MatrixElement check[] = { m1, m2 };
 		s1 = new SparseMatrix(2, 2, check);
 		s2 = new SparseMatrix(2, 2, check);
@@ -18,24 +18,46 @@ public class MatrixTesting {
 
 	@Test
 	public void testTranspose() {
-		int a[][] = { { 1, 0 }, { 2, 0 } };
-		Assert.assertArrayEquals(a, s1.transpose());
+		int a[][] = { { 1, 0 }, { 0, 1 } };
+		SparseMatrix s = s1.transpose();
+		int b[][] = new int[2][2];
+		for (int i = 0; i < s.elements.length; i++) {
+			b[s.elements[i].getRow()][s.elements[i].getColumn()] = s.elements[i]
+					.getElement();
+		}
+		Assert.assertArrayEquals(a, b);
 	}
 
 	@Test
 	public void testSymmetric() {
-		Assert.assertEquals(false, s1.checkSymetric());
+		Assert.assertEquals(true, s1.checkSymetric());
 	}
 
 	@Test
 	public void testAddMatrix() {
-		int sum[][] = { { 2, 4 }, { 0, 0 } };
-		Assert.assertArrayEquals(sum, SparseMatrix.addMatrix(s1, s2));
+		int a[][] = { { 2, 0 }, { 0, 2 } };
+		int b[][] = new int[2][2];
+		SparseMatrix s = SparseMatrix.addMatrix(s1, s2);
+		for (int i = 0; i < s.elements.length; i++) {
+			if (s.elements[i] != null) {
+				b[s.elements[i].getRow()][s.elements[i].getColumn()] = s.elements[i]
+						.getElement();
+			}
+		}
+		Assert.assertArrayEquals(a, b);
 	}
 
 	@Test
 	public void testMulMatrix() {
-		int mat[][] = { { 1, 2 }, { 0, 0 } };
-		Assert.assertArrayEquals(mat, SparseMatrix.mulMatrix(s1, s2));
+		int mat[][] = { { 1, 0 }, { 0, 1 } };
+		int b[][] = new int[2][2];
+		SparseMatrix s = SparseMatrix.mulMatrix(s1, s2);
+		for (int i = 0; i < s.elements.length; i++) {
+			if (s.elements[i] != null) {
+				b[s.elements[i].getRow()][s.elements[i].getColumn()] = s.elements[i]
+						.getElement();
+			}
+		}
+		Assert.assertArrayEquals(mat, b);
 	}
 }

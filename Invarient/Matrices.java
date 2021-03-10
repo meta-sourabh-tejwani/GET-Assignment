@@ -1,9 +1,9 @@
 import java.util.Arrays;
 
 class SparseMatrix {
-	private MatrixElement elements[];
-	private final int n;
-	private final int m;
+	public MatrixElement elements[];
+	public final int n;
+	public final int m;
 
 	public SparseMatrix(int row, int column, MatrixElement elements[]) {
 		this.m = column;
@@ -13,68 +13,173 @@ class SparseMatrix {
 	}
 
 	// Return Transpose of Matrix
-	public int[][] transpose() {
-		int[][] transpose = new int[m][n];
+	public SparseMatrix transpose() {
+		MatrixElement[] transpose = new MatrixElement[this.elements.length];
 		for (int i = 0; i < elements.length; i++) {
-			transpose[elements[i].getColumn()][elements[i].getRow()] = elements[i]
-					.getElement();
+			MatrixElement m = new MatrixElement(elements[i].getColumn(),
+					elements[i].getRow(), elements[i].getElement());
+			transpose[i] = m;
 		}
-		return Arrays.copyOf(transpose, transpose.length);
+		return new SparseMatrix(m, n, transpose);
 	}
 
 	// Check Symmetric or not
 	public boolean checkSymetric() {
-		int a[][] = transpose();
+		int countsymmetric = 0;
 		for (int i = 0; i < elements.length; i++) {
-			try {
-				if (elements[i].getElement() != a[elements[i].getRow()][elements[i]
-						.getColumn()]) {
-					return false;
-				}
-			} catch (Exception e) {
-				return false;
+			if (elements[i].getRow() == elements[i].getColumn()) {
+				countsymmetric++;
+				continue;
 			}
-
+			for (int j = i + 1; j < elements.length; j++) {
+				if (elements[i].getElement() == elements[j].getElement()
+						&& elements[i].getRow() == elements[j].getColumn()
+						&& elements[i].getColumn() == elements[j].getRow()) {
+					countsymmetric += 2;
+					break;
+				}
+			}
 		}
-		return true;
+		if (countsymmetric == elements.length)
+			return true;
+		else
+			return false;
 	}
 
 	// add two matrix
-	public static int[][] addMatrix(SparseMatrix s1, SparseMatrix s2) {
-		int a[][] = new int[s1.n][s1.m];
-		for (int i = 0; i < s1.elements.length; i++) {
-			a[s1.elements[i].getRow()][s1.elements[i].getColumn()] += s1.elements[i]
-					.getElement();
+	public static SparseMatrix addMatrix(SparseMatrix first, SparseMatrix second) {
+		if (first.m != second.m || first.n != second.n)
+			return null;
+		else {
+			int count = 0;
+			MatrixElement matrix;
+			MatrixElement sum[] = new MatrixElement[first.elements.length
+					+ second.elements.length];
+			int firstpos = 0, secondpos = 0, i = 0;
+			while (firstpos < first.elements.length
+					&& secondpos < second.elements.length) {
+				if (first.elements[firstpos].getRow() < second.elements[secondpos]
+						.getRow()) {
+					matrix = new MatrixElement(
+							first.elements[firstpos].getRow(),
+							first.elements[firstpos].getColumn(),
+							first.elements[firstpos].getElement());
+					sum[i++] = matrix;
+					firstpos++;
+					count++;
+				} else if (first.elements[firstpos].getRow() == second.elements[secondpos]
+						.getRow()) {
+					if (first.elements[firstpos].getColumn() < second.elements[secondpos]
+							.getColumn()) {
+						matrix = new MatrixElement(
+								first.elements[firstpos].getRow(),
+								first.elements[firstpos].getColumn(),
+								first.elements[firstpos].getElement());
+						sum[i++] = matrix;
+						firstpos++;
+						count++;
+					} else if (first.elements[firstpos].getColumn() == second.elements[secondpos]
+							.getColumn()) {
+						matrix = new MatrixElement(
+								first.elements[firstpos].getRow(),
+								first.elements[firstpos].getColumn(),
+								first.elements[firstpos].getElement()
+										+ second.elements[secondpos]
+												.getElement());
+						sum[i++] = matrix;
+						firstpos++;
+						secondpos++;
+						count++;
+					} else {
+						matrix = new MatrixElement(
+								second.elements[secondpos].getRow(),
+								second.elements[secondpos].getColumn(),
+								second.elements[secondpos].getElement());
+						sum[i++] = matrix;
+						secondpos++;
+						count++;
+					}
+				} else {
+					matrix = new MatrixElement(
+							second.elements[secondpos].getRow(),
+							second.elements[secondpos].getColumn(),
+							second.elements[secondpos].getElement());
+					sum[i++] = matrix;
+					secondpos++;
+					count++;
+				}
+			}
+			while (firstpos == first.elements.length
+					&& secondpos < second.elements.length) {
+				matrix = new MatrixElement(second.elements[secondpos].getRow(),
+						second.elements[secondpos].getColumn(),
+						second.elements[secondpos].getElement());
+				sum[i++] = matrix;
+				secondpos++;
+				count++;
+			}
+			while (secondpos == second.elements.length
+					&& firstpos < first.elements.length) {
+				matrix = new MatrixElement(first.elements[firstpos].getRow(),
+						first.elements[firstpos].getColumn(),
+						first.elements[firstpos].getElement());
+				sum[i++] = matrix;
+				firstpos++;
+				count++;
+			}
+			return new SparseMatrix(first.n, first.m, Arrays.copyOf(sum, count));
 		}
-		for (int i = 0; i < s2.elements.length; i++) {
-			a[s2.elements[i].getRow()][s2.elements[i].getColumn()] += s2.elements[i]
-					.getElement();
-		}
-		return Arrays.copyOf(a, a.length);
+
 	}
 
 	// multiply two matrix
-	public static int[][] mulMatrix(SparseMatrix s1, SparseMatrix s2) {
-		int a[][] = new int[s1.n][s2.m];
-		int first[][] = new int[s1.n][s1.m];
-		for (int i = 0; i < s1.elements.length; i++) {
-			first[s1.elements[i].getRow()][s1.elements[i].getColumn()] = s1.elements[i]
-					.getElement();
-		}
-		int second[][] = new int[s2.n][s2.m];
-		for (int i = 0; i < s2.elements.length; i++) {
-			second[s2.elements[i].getRow()][s2.elements[i].getColumn()] = s2.elements[i]
-					.getElement();
-		}
-		for (int i = 0; i < s1.n; i++) {
-			for (int j = 0; j < a[i].length; j++) {
-				a[i][j] = 0;
-				for (int k = 0; k < a[i].length; k++) {
-					a[i][j] += first[i][k] * second[k][j];
+	public static SparseMatrix mulMatrix(SparseMatrix s1, SparseMatrix s2) {
+		if (s1.m != s2.n) {
+			return null;
+		} else {
+			int count = 0;
+			MatrixElement ma;
+			MatrixElement generate[] = new MatrixElement[s1.m + s2.n];
+			int start = 0;
+			s2 = s2.transpose();
+			for (int i = 0; i < s1.elements.length;) {
+				int r = s1.elements[i].getRow();
+				for (int j = 0; j < s2.elements.length;) {
+					int c = s2.elements[j].getRow();
+					int tempa = i;
+					int tempb = j;
+					int sum = 0;
+					while (tempa < s1.elements.length
+							&& s1.elements[tempa].getRow() == r
+							&& tempb < s2.elements.length
+							&& s2.elements[tempb].getRow() == c) {
+						if (s1.elements[tempa].getColumn() < s2.elements[tempb]
+								.getColumn()) {
+							tempa++;
+						} else if (s1.elements[tempa].getColumn() > s2.elements[tempb]
+								.getColumn()) {
+							tempb++;
+						} else {
+							sum += s1.elements[tempa++].getElement()
+									* s2.elements[tempb++].getElement();
+						}
+					}
+					if (sum != 0) {
+						ma = new MatrixElement(r, c, sum);
+						generate[start++] = ma;
+						count++;
+					}
+					while (j < s2.elements.length
+							&& s2.elements[j].getRow() == c) {
+						j++;
+					}
+				}
+				while (i < s1.elements.length && s2.elements[i].getRow() == r) {
+					i++;
 				}
 			}
+			return new SparseMatrix(s1.m, s2.n, Arrays.copyOf(generate, count));
 		}
-		return Arrays.copyOf(a, a.length);
 	}
 
 }
