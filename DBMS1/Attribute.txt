@@ -1,0 +1,28 @@
+Product:-
+product id
+price
+quantity
+stock id
+
+Stock Item:-
+stock id
+
+user:
+ Type:
+ shopper
+  Administration
+
+Address-
+area
+city
+state
+country
+
+order-
+order status
+order id
+
+categories-
+sub category
+
+images

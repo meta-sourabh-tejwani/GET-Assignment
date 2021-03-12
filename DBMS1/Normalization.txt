@@ -1,0 +1,75 @@
+Normalization is the process of organizing the data in the database.
+It divides the larger table into the smaller table and links them using relationship
+Normalization is used to minimize the redundancy from a relation or set of relations.
+It is also used to eliminate the undesirable characteristics like Insertion, Update and Deletion Anomalies.
+Type of Normal form:
+1NF
+2NF
+3NF
+BCNF
+
+First Normal Form(1NF):
+A relation will be 1NF if it contains an atomic value.
+It states that an attribute of a table cannot hold multiple values. 
+It must hold only single-valued attribute.
+
+Example
+id      name     Number 
+1     Sourabh   9511556358,7023736737
+Here mobile no have multiple value which is it violate the rule of first NF.
+*********************************
+After changing in 1NF
+id      name     Number 
+1     Sourabh    9511556358
+1     Sourabh    7023736737
+
+*********************************
+Second Normal Form(2NF):
+First it will be in 1Nf.
+In the second normal form, all non-key attributes are fully functional dependent on the primary key
+
+id    name    age
+1    sourabh   21
+Here name and age are not fully dependent on primary key which is it violate the rule of second NF.
+*********************************
+After changing in 2NF
+id   name
+1    sourabh
+*********************************
+id   age
+1     21
+*********************************  
+Third Normal Form(3NF):
+A relation will be in 3NF if it is in 2NF and not contain any transitive partial dependency.
+3NF is used to reduce the data duplication.
+If there is no transitive dependency for non-prime attributes then the relation must be in third normal form.
+
+id    name     zip    city      state
+1   sourabh  313002  udaipur  rajasthan
+
+here city and state depend on zip and zip depend on id which is it violate the rule of third NF.
+*********************************  
+After convert into 3NF
+id    name       zip
+1    sourabh    313002
+
+zip     state      city
+313002  rajasthan  udaipur
+
+Boyce Codd normal form:
+Also known as BCNF
+The table in 3NF.
+It is advance version of 3NF.
+A table is in BCNF if every functional dependency X → Y, X is the super key of the table.
+id   country    depatment   department no
+1     india      software      12
+*********************************  
+After changing in BCNF
+id     country
+1       india
+
+department    departmentno
+software 	12
+*********************************  	
+
+  
