@@ -48,6 +48,11 @@ class MultiPolynomial {
 			if (i < multipoly.length()) {
 				if ((multipoly.charAt(i) == '+' || multipoly.charAt(i) == '-')
 						|| i == multipoly.length() - 1) {
+					if((multipoly.charAt(i) == '+' || multipoly.charAt(i) == '-'))
+					{
+						String operation=""+multipoly.charAt(i);
+						variable.addElement(operation);
+					}
 					polynomial.addElement(variable);
 					variable = new LinkedList<>();
 					i++;
