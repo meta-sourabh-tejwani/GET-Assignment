@@ -61,15 +61,24 @@ Also known as BCNF
 The table in 3NF.
 It is advance version of 3NF.
 A table is in BCNF if every functional dependency X → Y, X is the super key of the table.
-id   country    depatment   department no
-1     india      software      12
+emp_id	emp_name	emp_dept	dept_type	dept_no_of_emp
+1001	sourabh 	CS	            D001	200
+1001	sourabh 	IT	            D002	250
+1002    tejwani         CS         	    D001        200		                      
 *********************************  
 After changing in BCNF
-id     country
-1       india
+emp_id  emp_name
+1001     sourabh
+1002     tejwani
 
-department    departmentno
-software 	12
+emp_dept  dept_type dept_no_of_emp
+CS         D001      200
+IT	   D002      250
+
+emp_id    emp_dept
+1001        CS
+1001        IT
+1002        CS
 *********************************  	
 
   
