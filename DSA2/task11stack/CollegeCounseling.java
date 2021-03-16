@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,8 +31,11 @@ class StudentQueue {
 
 	/**
 	 * Insert into queue with name and 5 function
-	 * @param name contain name of student
-	 * @param function contain preference of function
+	 * 
+	 * @param name
+	 *            contain name of student
+	 * @param function
+	 *            contain preference of function
 	 */
 	public void enQueue(String name, String function[]) {
 		this.name[rear] = name;
@@ -43,7 +45,9 @@ class StudentQueue {
 
 	/**
 	 * remove student when function is match with required function
-	 * @param function contain required function
+	 * 
+	 * @param function
+	 *            contain required function
 	 * @return name of that function if function found else blank String
 	 */
 	public String deQueue(String function) {
@@ -74,8 +78,11 @@ class FunctionQueue {
 
 	/**
 	 * Add in Queue
-	 * @param name contain name of function
-	 * @param capacity contain requirement of function
+	 * 
+	 * @param name
+	 *            contain name of function
+	 * @param capacity
+	 *            contain requirement of function
 	 */
 	public void enQueue(String name, int capacity) {
 		this.functionname[rear] = name;
@@ -111,7 +118,7 @@ class FunctionQueue {
 	public void display() {
 		for (int i = 0; i < this.functionname.length; i++) {
 			System.out.println(this.functionname[i] + " " + this.capacity[i]);
-		}	
+		}
 	}
 
 }
@@ -136,6 +143,8 @@ public class CollegeCounseling {
 			String generated = function.getFunctionName();
 			if (student.deQueue(generated).equals(generated)) {
 				result.put(student.name[i], generated);
+			} else {
+				result.put(student.name[i], "");
 			}
 		}
 		for (String name : result.keySet()) {
@@ -153,8 +162,9 @@ public class CollegeCounseling {
 	public static StudentQueue createStudent() throws IOException {
 		Map<String, List<String>> student = new LinkedHashMap<>();
 
-		FileInputStream fis = new FileInputStream(new File(
-				"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\student.xlsx"));
+		FileInputStream fis = new FileInputStream(
+				new File(
+						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\student.xlsx"));
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		Iterator<Row> itr = sheet.iterator();
@@ -184,21 +194,15 @@ public class CollegeCounseling {
 			st.enQueue(name, fun);
 		}
 		wb.close();
-
-		/*
-		 * StudentQueue st = new StudentQueue(4); String fun[] = { "singing",
-		 * "dancing", "gaming", "organized", "arrangment" };
-		 * st.enQueue("sourabh", fun); st.enQueue("avi", fun);
-		 * st.enQueue("rahul", fun); st.enQueue("monu", fun);
-		 */
 		return st;
 	}
 
 	public static FunctionQueue createFunction() throws IOException {
 
 		Map<String, Integer> scfunction = new LinkedHashMap<>();
-		FileInputStream fis = new FileInputStream(new File(
-				"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\function.xlsx"));
+		FileInputStream fis = new FileInputStream(
+				new File(
+						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\function.xlsx"));
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		Iterator<Row> itr = sheet.iterator();
@@ -223,18 +227,14 @@ public class CollegeCounseling {
 			fc.enQueue(name, scfunction.get(name));
 		}
 		wb.close();
-
-		/*
-		 * FunctionQueue fc = new FunctionQueue(3); fc.enQueue("singing", 2);
-		 * fc.enQueue("dancing", 1); fc.enQueue("arrangment", 1);
-		 */
 		return fc;
 	}
 
 	public static void printInExcel(Map<String, String> result)
 			throws Exception {
-		FileInputStream fis = new FileInputStream(new File(
-				"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\result.xlsx"));
+		FileInputStream fis = new FileInputStream(
+				new File(
+						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\result.xlsx"));
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		int rownum = 0;
@@ -245,15 +245,13 @@ public class CollegeCounseling {
 			Cell cell2 = row.createCell(1);
 			cell2.setCellValue(result.get(name));
 		}
-		
-		try
-		{
-			FileOutputStream output=new FileOutputStream(new File(
-				"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\result.xlsx"));
+
+		try {
+			FileOutputStream output = new FileOutputStream(
+					new File(
+							"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\result.xlsx"));
 			wb.write(output);
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		wb.close();
