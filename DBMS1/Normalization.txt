@@ -28,16 +28,24 @@ Second Normal Form(2NF):
 First it will be in 1Nf.
 In the second normal form, all non-key attributes are fully functional dependent on the primary key
 
-id    name    age
-1    sourabh   21
+teacher_id   teacher_subject   age
+1                 physics	24
+1                 maths 	24
+2                 computer      30
+3                 commerce      26  
 Here name and age are not fully dependent on primary key which is it violate the rule of second NF.
 *********************************
 After changing in 2NF
-id   name
-1    sourabh
+id   teacher_subject
+1    	physics
+1        maths
+2        computer
+3       commerce
 *********************************
 id   age
-1     21
+1     24
+2     30
+3     26
 *********************************  
 Third Normal Form(3NF):
 A relation will be in 3NF if it is in 2NF and not contain any transitive partial dependency.
