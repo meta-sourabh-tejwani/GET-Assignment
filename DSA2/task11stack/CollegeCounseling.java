@@ -6,22 +6,141 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class CollegeCounseling {
-	private static Map<String, Integer> collegeoffer = new LinkedHashMap<>();
-	private static Queue<String> students = new LinkedList<>();
-	private static List<List<String>> studentpreference = new ArrayList<>();
-	private static Map<String, String> assigned = new LinkedHashMap<>();
+class Student {
+	private String name;
+	private String preference[];
+	private String assigned;
+
+	Student(String name, String preference[]) {
+		this.name = name;
+		this.preference = new String[5];
+		for (int i = 0; i < 5; i++) {
+			this.preference[i] = preference[i];
+		}
+		this.assigned = "";
+	}
+	/**
+	 * 
+	 * @return assigned course of student
+	 */
+	public String getAssigned() {
+		return assigned;
+	}
+
+	/**
+	 * assigned the course of student
+	 * @param assigned the course
+	 */
+	public void setAssigned(String assigned) {
+		this.assigned = assigned;
+	}
+
+	/**
+	 * 
+	 * @return name of student
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 
+	 * @param index contain index of course
+	 * @return preference of that index
+	 */
+	public String getPreference(int index) {
+		return preference[index];
+	}
+
+}
+
+class Course {
+	private String name;
+	private int capacity;
+
+	Course(String name, int capacity) {
+		this.name = name;
+		this.capacity = capacity;
+	}
+
+	/**
+	 * 
+	 * @return capacity of particular course
+	 */
+	public int getCapacity() {
+		return capacity;
+	}
+
+	/**
+	 * 
+	 * @return name of course
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * set the capacity
+	 * @param capacity contain new capacity
+	 */
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+}
+
+class StudentQueue{
+	private Student[] students;
+	private int rear = 0;
+	private int front = 0;
+	private int size;
+
+	StudentQueue(int size) {
+		this.size = size;
+		this.students = new Student[size];
+	}
+
+	/**
+	 * insert the student in Queue
+	 * @param student contain Student object
+	 */
+	public void enQueue(Student student) {
+		if (rear < size) {
+			this.students[rear++] = student;
+		}
+	}
+
+	/**
+	 * return size of Queue
+	 * @return size
+	 */
+	public int getSize() {
+		return size;
+	}
+
+	/**
+	 * remove into the queue
+	 * @return object which is removed
+	 */
+	public Student deQueue() {
+
+		if (front <= rear) {
+			return students[front++];
+		}
+		return null;
+	}
+}
+
+class CollegeCounseling {
+	private static Course collegeoffer[];
+	private static Student students[];
+	private static StudentQueue queue;
 
 	/**
 	 * check the student preference and according assign program if student have
@@ -31,40 +150,46 @@ public class CollegeCounseling {
 	 * @throws Exception
 	 */
 	public static void assignedProgram() throws Exception {
-		getProgram(collegeoffer);
-		getStudents(students, studentpreference);
-		int total = students.size();
-		for (int i = 0; i < total; i++) {
-			String student = students.remove();
-			String offergiven = "";
-			for (String preferprogram : studentpreference.get(i)) {
-				if (collegeoffer.containsKey(preferprogram)) {
-					int capacity = collegeoffer.get(preferprogram);
-					if (capacity > 0) {
-						offergiven = preferprogram;
-						collegeoffer.replace(preferprogram, capacity - 1);
-						break;
+		getProgram();
+		getStudents();
+		queue = new StudentQueue(students.length);
+		for (int i = 0; i < students.length; i++) {
+			queue.enQueue(students[i]);
+		}
+		for (int i = 0; i < queue.getSize(); i++) {
+			Student student = queue.deQueue();
+			int assigned = 0;
+			for (int j = 0; j < 5; j++) {
+				for (int k = 0; k < collegeoffer.length; k++) {
+					if (student.getPreference(j).equals(
+							collegeoffer[k].getName())) {
+						int capacity = collegeoffer[k].getCapacity();
+						if (capacity > 0) {
+							student.setAssigned(student.getPreference(j));
+							collegeoffer[k].setCapacity(capacity--);
+							assigned = 1;
+							break;
+						}
 					}
 				}
+				if (assigned == 1) {
+					break;
+				}
 			}
-			assigned.put(student, offergiven);
 		}
-		printInExcel(assigned);
+		printInExcel();
 
 	}
-
 	/**
-	 * Read the data from student excel file
-	 * @param students contain queue of student name
-	 * @param studentpreference contain each student preference
+	 * Accept the Data from student excel sheet
 	 * @throws IOException
 	 */
-	public static void getStudents(Queue<String> students,
-			List<List<String>> studentpreference) throws IOException {
+	public static void getStudents() throws IOException {
 		FileInputStream fileinput = new FileInputStream(
 				new File(
 						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\student.xlsx"));
 		XSSFWorkbook workbook = new XSSFWorkbook(fileinput);
+		List<Student> student = new ArrayList<>();
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> itr = sheet.iterator();
 		while (itr.hasNext()) {
@@ -72,73 +197,76 @@ public class CollegeCounseling {
 			int checkpreference = 0;
 			String studentname = "";
 			Iterator<Cell> celliterator = row.cellIterator();
-			List<String> preference = new ArrayList<>();
+			String preference[] = new String[5];
+			int index = 0;
 			while (celliterator.hasNext()) {
 				Cell cell = celliterator.next();
 				if (checkpreference == 0) {
 					studentname = cell.getStringCellValue();
 					checkpreference = 1;
 				} else {
-					preference.add(cell.getStringCellValue());
+					preference[index++] = cell.getStringCellValue();
 				}
 			}
-			students.add(studentname);
-			studentpreference.add(preference);
+			student.add(new Student(studentname, preference));
+			students = new Student[student.size()];
+			for (int i = 0; i < student.size(); i++) {
+				students[i] = student.get(i);
+			}
 		}
 		workbook.close();
 	}
-
 	/**
-	 * read the function excel file
-	 * @param collegeoffer contain key value pair of program offer by college and capacity
+	 * Accept the college data from function excel
 	 * @throws IOException
 	 */
-	public static void getProgram(Map<String, Integer> collegeoffer)
-			throws IOException {
+	public static void getProgram() throws IOException {
 		FileInputStream fileinput = new FileInputStream(
 				new File(
 						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\function.xlsx"));
 		XSSFWorkbook workbook = new XSSFWorkbook(fileinput);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> itr = sheet.iterator();
+		List<Course> courses = new ArrayList<>();
 		while (itr.hasNext()) {
 			Row row = itr.next();
-			int capacity = 0, count = 0;
-			String functionname = "";
+			int capacity = 0, check = 0;
+			String program = "";
 			Iterator<Cell> celliterator = row.cellIterator();
 			while (celliterator.hasNext()) {
 				Cell cell = celliterator.next();
-				if (count == 1) {
+				if (check == 1) {
 					capacity = (int) cell.getNumericCellValue();
 				} else {
-					count = 1;
-					functionname = cell.getStringCellValue();
+					check = 1;
+					program = cell.getStringCellValue();
 				}
 			}
-			collegeoffer.put(functionname, capacity);
+			courses.add(new Course(program, capacity));
+		}
+		collegeoffer = new Course[courses.size()];
+		for (int i = 0; i < courses.size(); i++) {
+			collegeoffer[i] = courses.get(i);
 		}
 		workbook.close();
 	}
-
 	/**
-	 * print the result into result excel file
-	 * @param result contain key value pair of student and assigned program
+	 * write the data into excel file result
 	 * @throws Exception
 	 */
-	public static void printInExcel(Map<String, String> result)
-			throws Exception {
+	public static void printInExcel() throws Exception {
 		FileInputStream fis = new FileInputStream(
 				new File(
 						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\result.xlsx"));
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		int rownum = 0;
-		for (String name : result.keySet()) {
+		for (int i = 0; i < students.length; i++) {
 			Row row = sheet.createRow(rownum++);
 			Cell cell1 = row.createCell(0);
-			cell1.setCellValue(name);
+			cell1.setCellValue(students[i].getName());
 			Cell cell2 = row.createCell(1);
-			cell2.setCellValue(result.get(name));
+			cell2.setCellValue(students[i].getAssigned());
 		}
 
 		try {
