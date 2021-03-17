@@ -5,206 +5,101 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-class StudentQueue {
-	public String name[];
-	public String function[][];
-	public int front;
-	public int rear;
-
-	StudentQueue(int size) {
-		this.name = new String[size];
-		this.function = new String[size][5];
-		this.rear = 0;
-		this.front = 0;
-	}
-
-	/**
-	 * Insert into queue with name and 5 function
-	 * 
-	 * @param name
-	 *            contain name of student
-	 * @param function
-	 *            contain preference of function
-	 */
-	public void enQueue(String name, String function[]) {
-		this.name[rear] = name;
-		this.function[rear] = Arrays.copyOf(function, 5);
-		rear++;
-	}
-
-	/**
-	 * remove student when function is match with required function
-	 * 
-	 * @param function
-	 *            contain required function
-	 * @return name of that function if function found else blank String
-	 */
-	public String deQueue(String function) {
-		for (int i = 0; i < this.function[front].length; i++) {
-			if (this.function[front][i].equals(function)) {
-				front++;
-				return function;
-			}
-		}
-		front++;
-		return "";
-	}
-
-}
-
-class FunctionQueue {
-	public String functionname[];
-	public int capacity[];
-	public int front;
-	public int rear;
-
-	FunctionQueue(int size) {
-		this.functionname = new String[size];
-		this.capacity = new int[size];
-		this.rear = 0;
-		this.front = 0;
-	}
-
-	/**
-	 * Add in Queue
-	 * 
-	 * @param name
-	 *            contain name of function
-	 * @param capacity
-	 *            contain requirement of function
-	 */
-	public void enQueue(String name, int capacity) {
-		this.functionname[rear] = name;
-		this.capacity[rear] = capacity;
-		rear++;
-	}
-
-	/**
-	 * remove function when function requirement completed
-	 */
-	public void deQueue() {
-		if (front < functionname.length) {
-			while (capacity[front] == 0) {
-				front++;
-				if (front >= functionname.length)
-					return;
-			}
-			capacity[front] -= 1;
-		} else
-			return;
-	}
-
-	/**
-	 * 
-	 * @return current required function name
-	 */
-	public String getFunctionName() {
-		if (front >= functionname.length)
-			return "";
-		return functionname[front];
-	}
-
-	public void display() {
-		for (int i = 0; i < this.functionname.length; i++) {
-			System.out.println(this.functionname[i] + " " + this.capacity[i]);
-		}
-	}
-
-}
-
 public class CollegeCounseling {
-	public static void main(String... k) {
-		StudentQueue student = null;
-		try {
-			student = createStudent();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		FunctionQueue function = null;
-		try {
-			function = createFunction();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Map<String, String> result = new LinkedHashMap<>();
-		for (int i = 0; i < student.name.length; i++) {
-			function.deQueue();
-			String generated = function.getFunctionName();
-			if (student.deQueue(generated).equals(generated)) {
-				result.put(student.name[i], generated);
-			} else {
-				result.put(student.name[i], "");
+	private static Map<String, Integer> collegeoffer = new LinkedHashMap<>();
+	private static Queue<String> students = new LinkedList<>();
+	private static List<List<String>> studentpreference = new ArrayList<>();
+	private static Map<String, String> assigned = new LinkedHashMap<>();
+
+	/**
+	 * check the student preference and according assign program if student have
+	 * different program which not are available by college then it does not
+	 * assign any program
+	 * 
+	 * @throws Exception
+	 */
+	public static void assignedProgram() throws Exception {
+		getProgram(collegeoffer);
+		getStudents(students, studentpreference);
+		int total = students.size();
+		for (int i = 0; i < total; i++) {
+			String student = students.remove();
+			String offergiven = "";
+			for (String preferprogram : studentpreference.get(i)) {
+				if (collegeoffer.containsKey(preferprogram)) {
+					int capacity = collegeoffer.get(preferprogram);
+					if (capacity > 0) {
+						offergiven = preferprogram;
+						collegeoffer.replace(preferprogram, capacity - 1);
+						break;
+					}
+				}
 			}
+			assigned.put(student, offergiven);
 		}
-		for (String name : result.keySet()) {
-			System.out
-					.println("name=" + name + " function=" + result.get(name));
-		}
-		try {
-			printInExcel(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		printInExcel(assigned);
 
 	}
 
-	public static StudentQueue createStudent() throws IOException {
-		Map<String, List<String>> student = new LinkedHashMap<>();
-
-		FileInputStream fis = new FileInputStream(
+	/**
+	 * Read the data from student excel file
+	 * @param students contain queue of student name
+	 * @param studentpreference contain each student preference
+	 * @throws IOException
+	 */
+	public static void getStudents(Queue<String> students,
+			List<List<String>> studentpreference) throws IOException {
+		FileInputStream fileinput = new FileInputStream(
 				new File(
 						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\student.xlsx"));
-		XSSFWorkbook wb = new XSSFWorkbook(fis);
-		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFWorkbook workbook = new XSSFWorkbook(fileinput);
+		XSSFSheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> itr = sheet.iterator();
 		while (itr.hasNext()) {
 			Row row = itr.next();
-			int c = 0;
+			int checkpreference = 0;
 			String studentname = "";
 			Iterator<Cell> celliterator = row.cellIterator();
-			List<String> function = new ArrayList<>();
+			List<String> preference = new ArrayList<>();
 			while (celliterator.hasNext()) {
 				Cell cell = celliterator.next();
-				if (c == 0) {
+				if (checkpreference == 0) {
 					studentname = cell.getStringCellValue();
-					c = 1;
+					checkpreference = 1;
 				} else {
-					function.add(cell.getStringCellValue());
+					preference.add(cell.getStringCellValue());
 				}
 			}
-			student.put(studentname, function);
+			students.add(studentname);
+			studentpreference.add(preference);
 		}
-		StudentQueue st = new StudentQueue(student.size());
-		for (String name : student.keySet()) {
-			String fun[] = new String[5];
-			for (int i = 0; i < student.get(name).size(); i++) {
-				fun[i] = student.get(name).get(i);
-			}
-			st.enQueue(name, fun);
-		}
-		wb.close();
-		return st;
+		workbook.close();
 	}
 
-	public static FunctionQueue createFunction() throws IOException {
-
-		Map<String, Integer> scfunction = new LinkedHashMap<>();
-		FileInputStream fis = new FileInputStream(
+	/**
+	 * read the function excel file
+	 * @param collegeoffer contain key value pair of program offer by college and capacity
+	 * @throws IOException
+	 */
+	public static void getProgram(Map<String, Integer> collegeoffer)
+			throws IOException {
+		FileInputStream fileinput = new FileInputStream(
 				new File(
 						"C:\\Users\\sourabh.tejwani_meta\\workspace\\task11stack\\src\\task11stack\\function.xlsx"));
-		XSSFWorkbook wb = new XSSFWorkbook(fis);
-		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFWorkbook workbook = new XSSFWorkbook(fileinput);
+		XSSFSheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> itr = sheet.iterator();
 		while (itr.hasNext()) {
 			Row row = itr.next();
@@ -220,16 +115,16 @@ public class CollegeCounseling {
 					functionname = cell.getStringCellValue();
 				}
 			}
-			scfunction.put(functionname, capacity);
+			collegeoffer.put(functionname, capacity);
 		}
-		FunctionQueue fc = new FunctionQueue(scfunction.size());
-		for (String name : scfunction.keySet()) {
-			fc.enQueue(name, scfunction.get(name));
-		}
-		wb.close();
-		return fc;
+		workbook.close();
 	}
 
+	/**
+	 * print the result into result excel file
+	 * @param result contain key value pair of student and assigned program
+	 * @throws Exception
+	 */
 	public static void printInExcel(Map<String, String> result)
 			throws Exception {
 		FileInputStream fis = new FileInputStream(
