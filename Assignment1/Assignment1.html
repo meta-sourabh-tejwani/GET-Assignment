@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Metacube Parking System</title>
+</head>
+<body>
+	<h1 style="text-align:center">Welcome To The Metacube Parking System</h1>
+	<!--nav contain the image and navigation bar-->
+	<nav style="text-align:center">
+		<img src="parking.png" alt="parking image"></img><br>
+		<a href="#employee">| Add Employee |</a>
+		<a href="#vehicle">| Add Vehicle |</a>
+		<a href="#feedback">| Feedback |</a>
+		<a href="#price">| Pricing |</a><br><br><hr>
+	</nav>
+	
+	<!--div contain the employee Form-->
+	<div style="text-align:center" id="employee">
+	<h1>Employee Registration Form</h1>
+		<form>
+			<label for="Name">Full Name:</label> 
+			<input type="text" id="Name" required><br><br>
+			
+			<label>Gender:</label>
+			<input type="radio" id="Male" name="gender" >
+			<label for="Male">Male</label>
+			<input type="radio" id="Female" name="gender">
+			<label for="Female">Female</label>
+			<input type="radio" id="Others" name="gender">
+			<label for="Others">Others</label><br><br>
+
+			<label for="mail">Email-id:</label>
+			<input type="email" id="mail" required><br><br>
+			
+			<label for="password">Password:</label>
+			<input type="password" id="password" required><br><br>
+			
+			<label for="confirm-password">Confirm-Password:</label>
+			<input type="password" id="confirm-password" required><br><br>
+			
+			<input type="submit"><br><br><hr>
+			
+		</form>
+	</div>
+	
+	<!--div contain the Vehicle Form-->
+	<div style="text-align:center" id="vehicle">
+	<h1>Vehicle Registration Form</h1>
+		<form>
+			<label for="company-name">Company Name:</label> 
+			<input type="text" id="company-name" required><br><br>
+			
+			
+			<label for="vehicle-model">Vehicle Model:</label> 
+			<input type="text" id="vehicle-model" required><br><br>
+			
+			<label>Vehicle Type:</label>
+			<input type="radio" id="Cycle" name="vehicle" >
+			<label for="Cycle">Cycle</label>
+			<input type="radio" id="Motor Cycle" name="vehicle">
+			<label for="Motor Cycle">Motor Cycle</label>
+			<input type="radio" id="Four Wheeler" name="vehicle">
+			<label for="Four Wheeler">Four Wheeler</label><br><br>
+
+			<label for="vehicle-number">Vehicle Number:</label>
+			<input type="text" id="vehicle-number" required><br><br>
+			
+			<label for="employee-id">Employee Id:</label>
+			<input type="text" id="employee-id" required><br><br>
+			
+			<label for="identification">Identification:</label>
+			<textarea style="height:70px"></textarea><br><br>
+			
+			<input type="submit"><br><br><hr>
+			
+		</form>
+	</div>
+	
+	<!--div contain the Feedback Form-->
+	<div style="text-align:center" id="feedback">
+	<h1>Feedback Form</h1>
+		<form>
+			<label for="Name">Full Name:</label> 
+			<input type="text" id="Name" required><br><br>
+			
+			
+			<label for="mail">Email-id:</label>
+			<input type="email" id="mail" required><br><br>
+			
+			
+			<label>Rating:</label>
+			<input type="radio" id="1" name="rating" >
+			<label for="1">1</label>
+			<input type="radio" id="2" name="rating" >
+			<label for="2">2</label>
+			<input type="radio" id="3" name="rating" >
+			<label for="3">3</label>
+			<input type="radio" id="4" name="rating" >
+			<label for="4">4</label>
+			<input type="radio" id="5" name="rating" >
+			<label for="5">5</label><br><br>
+			
+			<label for="suggestion">Suggestion:</label>
+			<textarea style="height:70px"></textarea><br><br>
+			
+			<input type="submit"><br><br><hr>
+			
+		</form>
+	</div>
+	
+	<!--div contain the Prices of Vehicle -->
+	<div style="text-align:center" id="price">
+		<div id="cycle" style="margin:auto;width:20%;border:1px solid blue">
+			<h2>Cycle</h2>
+			<h1>100$</h1>
+			<p>$5 daily</p>
+			<p>$100 monthly</p>
+			<p>$500 yearly</p>
+			<input type="button" value="Purchase"><br><br>
+		</div>
+		
+		<div id="Motor Cycle" style="margin:auto;width:20%;border:1px solid blue">
+			<h2>Motor cycle</h2>
+			<h1>200$</h1>
+			<p>$10 daily</p>
+			<p>$200 monthly</p>
+			<p>$100 yearly</p>
+			<input type="button" value="Purchase"><br><br>
+		</div>
+		
+		<div id="Four Wheeler" style="margin:auto;width:20%;border:1px solid blue">
+			<h2>Four Wheeler</h2>
+			<h1>300$</h1>
+			<p>$15 daily</p>
+			<p>$300 monthly</p>
+			<p>$1500 yearly</p>
+			<input type="button" value="Purchase"><br><br>
+		</div>
+	</div>
+	
+	
+</body
+</html>
