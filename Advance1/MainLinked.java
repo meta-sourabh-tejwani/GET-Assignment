@@ -100,6 +100,14 @@ class EmployeeLinkedList {
 					compare.setNext(pre);
 					if (compare.getPrevious() == null)
 						head = compare;
+					if (compare != null) {
+						if (compare.getPrevious() != null)
+							compare.getPrevious().setNext(compare);
+					}
+					if (pre != null) {
+						if (pre.getNext() != null)
+							pre.getNext().setPrevious(pre);
+					}
 					pre = compare.getPrevious();
 
 				} else if (pre.getSalary() == compare.getSalary()) {
@@ -111,6 +119,15 @@ class EmployeeLinkedList {
 						pre = compare.getPrevious();
 						if (compare.getPrevious() == null)
 							head = compare;
+						if (compare != null) {
+							if (compare.getPrevious() != null)
+								compare.getPrevious().setNext(compare);
+						}
+						if (pre != null) {
+							if (pre.getNext() != null)
+								pre.getNext().setPrevious(pre);
+						}
+						pre = compare.getPrevious();
 					} else {
 						break;
 					}
@@ -126,10 +143,9 @@ class EmployeeLinkedList {
 public class MainLinked {
 	public static void main(String... k) {
 		EmployeeLinkedList e = new EmployeeLinkedList();
-		e.add(12000, 21, "sourabh");
-		e.add(22000, 23, "avi");
-		e.add(22000, 21, "monu");
-		e.add(21000, 23, "ravi");
+		e.add(10000, 21, "avi");
+		e.add(11000, 14, "monu");
+		e.add(14000, 21, "ravi");
 		e.add(11000, 23, "rohit");
 		e.add(10000, 11, "rahul");
 		System.out.println("before sorted");
