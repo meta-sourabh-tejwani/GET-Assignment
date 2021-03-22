@@ -1,0 +1,109 @@
+interface PriorityQueue {
+	public boolean enQueue(int value);
+
+	public int deQueue();
+
+	public void display();
+
+}
+
+class PriorityQueueHeap implements PriorityQueue {
+	private int data[];
+	private int rear;
+	private int front;
+
+	PriorityQueueHeap(int size) {
+		this.data = new int[size];
+	}
+
+	/**
+	 * Insert The Data into The Priority Queue By using max heap
+	 */
+	@Override
+	public boolean enQueue(int value) {
+		if (rear == data.length)
+			return false;
+		this.data[rear] = value;
+		int child = rear + 1;
+		int parent = (rear + 1) / 2;
+		while (child != 1) {
+			if (data[parent - 1] <= data[child - 1]) {
+				int temp = data[parent - 1];
+				data[parent - 1] = data[child - 1];
+				data[child - 1] = temp;
+
+			} else {
+				break;
+			}
+			child = parent;
+			parent = parent / 2;
+		}
+		rear++;
+		return true;
+	}
+
+	public void display() {
+		for (int i = 0; i < rear; i++) {
+			System.out.print(data[i] + " ");
+		}
+		System.out.println();
+	}
+
+	/**
+	 * Delete the max node and return that node by using max heap
+	 */
+	@Override
+	public int deQueue() {
+		rear--;
+		int prority = data[front];
+		data[front] = data[rear];
+		data[rear] = -1;
+		int parent = front + 1;
+		int child1 = 2 * parent;
+		int child2 = 2 * parent + 1;
+		while (data[child1 - 1] != -1 || data[child2 - 1] != -1) {
+			if ((data[child1 - 1] != -1 && data[child2 - 1] == -1)
+					|| data[child1 - 1] >= data[child2 - 1]) {
+				if (data[parent - 1] < data[child1 - 1]) {
+					int temp = data[child1 - 1];
+					data[child1 - 1] = data[parent - 1];
+					data[parent - 1] = temp;
+				}
+				parent = child1;
+				child1 = 2 * parent;
+				child2 = 2 * parent + 1;
+			} else {
+				int temp = data[child2 - 1];
+				data[child2 - 1] = data[parent - 1];
+				data[parent - 1] = temp;
+				parent = child2;
+				child1 = 2 * parent;
+				child2 = 2 * parent + 1;
+			}
+			if (child1 > rear && child2 > rear) {
+				break;
+			}
+		}
+		return prority;
+
+	}
+
+}
+
+public class PriorityQueue1
+{
+	public static void main(String...k)
+	{
+		PriorityQueue queue=new PriorityQueueHeap(6);
+		queue.enQueue(12);
+		queue.enQueue(2);
+		queue.enQueue(6);
+		queue.enQueue(18);
+		queue.enQueue(14);
+		queue.enQueue(20);
+		for(int i=0;i<6;i++)
+		{
+			System.out.print(queue.deQueue()+" ");
+		}
+	}
+}
