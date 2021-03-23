@@ -125,9 +125,9 @@ class BinarySearchTree {
 		String value = "";
 		TreeNode current = root;
 		while (current != null) {
-			if (key > current.getKeyValue().getKey()) {
+			if (key < current.getKeyValue().getKey()) {
 				current = current.getLeft();
-			} else if (key < current.getKeyValue().getKey()) {
+			} else if (key > current.getKeyValue().getKey()) {
 				current = current.getRight();
 			} else {
 				value = current.getKeyValue().getValue();
@@ -264,6 +264,9 @@ public class BSTDictionary {
 	public static void main(String... k) {
 		List<KeyValue> result = new ArrayList<>();
 
+		/**
+		 * Accept the data from json file in the list
+		 */
 		try {
 			String text = new String(
 					Files.readAllBytes(Paths
@@ -280,10 +283,22 @@ public class BSTDictionary {
 		} catch (Exception ex) {
 			System.out.println(ex.toString());
 		}
+		/**
+		 * Create object of BST tree with some data in List
+		 */
 		BinarySearchTree bst = new BinarySearchTree(result);
+		/*
+		 * Display the Data
+		 */
 		bst.display();
+		/*
+		 * Delete the node in binary search tree
+		 */
 		bst.delete(1);
 		System.out.println("After Deleting 1 Key.....");
+		bst.display();
+		bst.delete(10);
+		System.out.println("After Deleting 10 Key.....");
 		bst.display();
 		System.out.println("Sorting from 7 To 15");
 		List<KeyValue> b = bst.sorted(7, 15);
@@ -296,6 +311,15 @@ public class BSTDictionary {
 			System.out.println(b.get(i).getKey() + " " + b.get(i).getValue());
 		}
 		System.out.println(bst.getValue(11));
+		BinarySearchTree bst1 = new BinarySearchTree();
+		bst1.add(new KeyValue(1, "a"));
+		bst1.add(new KeyValue(2, "b"));
+		bst1.add(new KeyValue(3, "c"));
+		bst1.add(new KeyValue(4, "d"));
+		bst1.add(new KeyValue(-1, "e"));
+		bst1.display();
+		bst1.delete(1);
+		bst1.display();
 
 	}
 }
