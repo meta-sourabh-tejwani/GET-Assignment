@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Bowler {
+class Bowler implements Comparable<Bowler>{
 	String name;
 	int bowledleft;
 
@@ -17,27 +17,28 @@ class Bowler {
 	public int getBowledLeft() {
 		return bowledleft;
 	}
+
+	@Override
+	public int compareTo(Bowler b1) {
+		return this.getBowledLeft()-b1.getBowledLeft();
+	}
 }
 
-class BowlerChoose {
-	private PriorityQueue priority;
+class BowlerChoose<T extends Comparable<T>>{
+	private PriorityQueue<T> priority;
 	private int totalbowler;
 	private int viratplayed;
-	private Bowler bowler[];
-	private int quota[];
+	private T bowler[];
 
-	BowlerChoose(int totalbowler, int viratplayed, List<Bowler> bowler) {
+	@SuppressWarnings("unchecked")
+	BowlerChoose(int totalbowler, int viratplayed, List<T> bowler) {
 		this.totalbowler = totalbowler;
 		this.viratplayed = viratplayed;
-		this.bowler = new Bowler[totalbowler];
+		this.bowler = (T[]) new Comparable[totalbowler];
 		for (int i = 0; i < bowler.size(); i++) {
-			this.bowler[i] = bowler.get(i);
+			this.bowler[i] = (T) bowler.get(i);
 		}
-		this.quota = new int[totalbowler];
-		for (int i = 0; i < totalbowler; i++) {
-			quota[i] = bowler.get(i).getBowledLeft();
-		}
-		this.priority = new PriorityQueueHeap(totalbowler);
+		this.priority = new PriorityQueueHeap<T>(totalbowler);
 		add();
 	}
 
@@ -46,7 +47,7 @@ class BowlerChoose {
 	 */
 	private void add() {
 		for (int i = 0; i < totalbowler; i++) {
-			priority.enQueue(quota[i]);
+			priority.enQueue(bowler[i]);
 		}
 	}
 
@@ -57,16 +58,7 @@ class BowlerChoose {
 	public List<Bowler> getOrder() {
 		List<Bowler> bowlerorder = new ArrayList<>();
 		for (int i = 0; i < totalbowler; i++) {
-			int bowlerpriority = priority.deQueue();
-			for (int j = 0; j < bowler.length; j++) {
-				if (bowler[j] != null) {
-					if (bowlerpriority == bowler[j].getBowledLeft()) {
-						bowlerorder.add(bowler[j]);
-						bowler[j] = null;
-						break;
-					}
-				}
-			}
+			bowlerorder.add((Bowler) priority.deQueue());
 		}
 		return bowlerorder;
 	}
@@ -81,7 +73,7 @@ class Virat {
 		bowler.add(new Bowler("mayank", 8));
 		bowler.add(new Bowler("mohit", 12));
 		bowler.add(new Bowler("sourabh", 17));
-		BowlerChoose b = new BowlerChoose(5, 10, bowler);
+		BowlerChoose<Bowler> b = new BowlerChoose<Bowler>(5, 10, bowler);
 		List<Bowler> order = b.getOrder();
 		for (int i = 0; i < order.size(); i++) {
 			System.out.println("Name=" + order.get(i).getName()

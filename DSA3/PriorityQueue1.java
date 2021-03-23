@@ -1,34 +1,35 @@
-interface PriorityQueue {
-	public boolean enQueue(int value);
+interface PriorityQueue<T extends Comparable<T>>{
+	public boolean enQueue(T value);
 
-	public int deQueue();
+	public T deQueue();
 
 	public void display();
 
 }
 
-class PriorityQueueHeap implements PriorityQueue {
-	private int data[];
+class PriorityQueueHeap<T extends Comparable<T>> implements PriorityQueue<T> {
+	private T data[];
 	private int rear;
 	private int front;
 
+	@SuppressWarnings("unchecked")
 	PriorityQueueHeap(int size) {
-		this.data = new int[size];
+		this.data = (T[]) new Comparable[size];
 	}
 
 	/**
 	 * Insert The Data into The Priority Queue By using max heap
 	 */
 	@Override
-	public boolean enQueue(int value) {
+	public boolean enQueue(T value) {
 		if (rear == data.length)
 			return false;
 		this.data[rear] = value;
 		int child = rear + 1;
 		int parent = (rear + 1) / 2;
 		while (child != 1) {
-			if (data[parent - 1] <= data[child - 1]) {
-				int temp = data[parent - 1];
+			if (data[parent - 1].compareTo(data[child - 1])<0) {
+				T temp = data[parent - 1];
 				data[parent - 1] = data[child - 1];
 				data[child - 1] = temp;
 
@@ -53,19 +54,19 @@ class PriorityQueueHeap implements PriorityQueue {
 	 * Delete the max node and return that node by using max heap
 	 */
 	@Override
-	public int deQueue() {
+	public T deQueue() {
 		rear--;
-		int prority = data[front];
+		T prority = data[front];
 		data[front] = data[rear];
-		data[rear] = -1;
+		data[rear] = null;
 		int parent = front + 1;
 		int child1 = 2 * parent;
 		int child2 = 2 * parent + 1;
-		while (data[child1 - 1] != -1 || data[child2 - 1] != -1) {
-			if ((data[child1 - 1] != -1 && data[child2 - 1] == -1)
-					|| data[child1 - 1] >= data[child2 - 1]) {
-				if (data[parent - 1] < data[child1 - 1]) {
-					int temp = data[child1 - 1];
+		while (data[child1 - 1] != null || data[child2 - 1] != null) {
+			if ((data[child1 - 1] != null && data[child2 - 1] == null)
+					|| data[child1 - 1].compareTo(data[child2 - 1])>=0) {
+				if (data[parent - 1].compareTo(data[child1 - 1])<0) {
+					T temp = data[child1 - 1];
 					data[child1 - 1] = data[parent - 1];
 					data[parent - 1] = temp;
 				}
@@ -73,7 +74,7 @@ class PriorityQueueHeap implements PriorityQueue {
 				child1 = 2 * parent;
 				child2 = 2 * parent + 1;
 			} else {
-				int temp = data[child2 - 1];
+				T temp = data[child2 - 1];
 				data[child2 - 1] = data[parent - 1];
 				data[parent - 1] = temp;
 				parent = child2;
@@ -94,7 +95,7 @@ public class PriorityQueue1
 {
 	public static void main(String...k)
 	{
-		PriorityQueue queue=new PriorityQueueHeap(6);
+		PriorityQueue<Integer> queue=new PriorityQueueHeap<>(6);
 		queue.enQueue(12);
 		queue.enQueue(2);
 		queue.enQueue(6);
