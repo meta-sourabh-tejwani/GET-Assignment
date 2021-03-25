@@ -1,0 +1,125 @@
+
+.heading{
+    padding: 50px;
+    background-color:#7f00ff;
+}
+.heading> h1{
+    font-size: 50px;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.image{
+    background-image: url('parking.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    margin: 70px;
+    text-align: justify;
+}
+element{ 
+    margin:auto;
+}
+.nav-element
+{
+    color:#7f00ff;
+    font-size: 25px;
+    padding:20px; 
+    text-decoration: none;
+    margin: 6%;
+
+}
+
+.heading2
+{
+    font-size: 20px;
+    background-color:#7f00ff;
+    color:white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.form-label
+{
+    display: inline-block;
+    font-size: 20px;
+    width: 200px;
+    height: 30px;
+    margin: 15px;
+}
+.input-tag
+{
+    font-size: 15px;
+    width: 300px;
+    height: 30px;
+}
+.buttons{
+    font-size: 20px;
+    color: white;
+    background-color:#7f00ff;
+    border-color: #7f00ff;
+    border-style: groove;
+    margin-left:20%;
+    margin-bottom: 5%;
+    width: 130px;
+    height: 50px;
+    border-radius: 25px;
+}
+.textareas
+{
+    font-size: 15px;
+    width: 300px;
+    height: 70px;
+}
+.radio-label
+{
+    font-size: 20px;
+}
+.pricetag
+{
+    text-align: center;
+    width: auto;
+}
+
+.prices
+{
+    text-align: center;
+    display: inline-block;
+    width: 20%;
+    border: 1px;
+    background-color:#7f00ff;
+    border-color: #7f00ff;
+    border-radius: 10%;
+    color: white;
+    margin: 20px;
+}
+.purchasebutton
+{
+    font-size: 20px;
+    color: white;
+    background-color:#7f00ff;
+    border-color: #7f00ff;
+    border-style: groove;
+    margin-bottom: 5%;
+    width: 130px;
+    height: 50px;
+    border-radius: 25px;   
+}
+.price-highlit
+{
+    font-size: 15px;
+    border: 2px solid white;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 55%;
+}
+.price-heading
+{
+    font-size: 20px;
+}
+.hidden-section> form{
+    display: none;
+}
+.hidden-section  .heading2{
+    
+    background-color:white;
+    color:#7f00ff;
+
+}

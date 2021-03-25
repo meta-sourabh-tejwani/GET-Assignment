@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Metacube parking System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div>
+        <div class="heading">
+            <h1>Welcome To The Metacube Parking System</h1>
+        </div>
+        <!--nav contain the image and navigation bar-->
+        <div class="image">
+            <nav class="element">
+                <a class="nav-element" href="#employee">Add Employee</a>
+                <a class="nav-element" href="#vehicle">Add Vehicle </a>
+                <a class="nav-element" href="#feedback"> Feedback </a>
+                <a class="nav-element" href="#price"> Pricing </a>
+            </nav>
+        </div>
+
+        <div class="section hidden-section" id="employee">
+            <div class="heading2">
+                <h1>Employee Details-</h1>
+            </div>
+            <form>
+                <div>
+                    <label class="form-label" for="Name">Full Name:</label>
+                    <input class="input-tag" type="text" id="Name" placeholder="Full Name" name="name" required>
+                </div>
+
+                <!--label and input wrap-->
+                <!--name or value in tag-->
+
+                <div>
+                    <label class="form-label">Gender:</label>
+                    <input type="radio" id="Male" name="gender" value="male">
+                    <label class="radio-label" for="Male">Male</label>
+                    <input type="radio" id="Female" name="gender" value="female">
+                    <label class="radio-label" for="Female">Female</label>
+                    <input type="radio" id="Others" name="gender">
+                    <label class="radio-label" for="Others" value="others">Others</label>
+                </div>
+
+                <div>
+                    <label class="form-label" for="mail">Email-id:</label>
+                    <input class="input-tag" type="email" id="mail" placeholder="Email-id" name="email" required>
+                </div>
+
+                <div>
+                    <label class="form-label" for="password">Password:</label>
+                    <input class="input-tag" type="password" id="password" placeholder="password" name="password"
+                        required>
+                </div>
+
+                <div>
+                    <label class="form-label" for="confirm-password">Confirm-Password:</label>
+                    <input class="input-tag" type="password" id="confirm-password" placeholder="Confirm-Password"
+                        name="confirm password" required>
+                </div>
+
+                <div>
+                    <label class="form-label" for="contact">Contact:</label>
+                    <input class="input-tag" type="number" id="Contact" placeholder="Number" name="number" required>
+                </div>
+
+                <div><input class="buttons" type="submit"></div>
+
+            </form>
+        </div>
+
+        <!--div contain the Vehicle Form-->
+        <div id="vehicle" class="section">
+            <div class="heading2">
+                <h1>Vehicle Details-</h1>
+            </div>
+            <form>
+                <div>
+                    <label class="form-label" for="company-name">Company Name:</label>
+                    <input class="input-tag" type="text" id="company-name" placeholder="Vehicle Name" name="vehicle name"
+                        required>
+                </div>
+
+                <div>
+                    <label class="form-label" for="vehicle-model">Vehicle Model:</label>
+                    <input class="input-tag" type="text" id="vehicle-model" placeholder="Vehicle Model" name="model"
+                        required>
+                </div>
+
+                <div>
+                    <label class="form-label">Vehicle Type:</label>
+                    <input type="radio" id="Cycle" name="vehicle">
+                    <label class="radio-label" for="Cycle">Cycle</label>
+                    <input type="radio" id="Motor Cycle" name="vehicle">
+                    <label class="radio-label" for="Motor Cycle">Motor Cycle</label>
+                    <input type="radio" id="Four Wheeler" name="vehicle">
+                    <label class="radio-label" for="Four Wheeler">Four Wheeler</label>
+                </div>
+
+                <div>
+                    <label class="form-label" for="vehicle-number">Vehicle Number:</label>
+                    <input class="input-tag" type="text" id="vehicle-number" placeholder="Vehicle Number" name="number"
+                        required>
+                </div>
+
+                <div>
+                    <label class="form-label" for="employee-id">Employee Id:</label>
+                    <input class="input-tag" type="text" id="employee-id" placeholder="Employee-id" name="employee id"
+                        required>
+                </div>
+
+                <div>
+                    <label class="form-label" for="identification">Identification:</label>
+                    <textarea class="textareas" name="identification" placeholder="Color,mark etc"></textarea>
+                </div>
+
+                <input class="buttons" type="submit">
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="feedback" class="section">
+        <div class="heading2">
+            <h1>Feedback Form</h1>
+        </div>
+        <form>
+            <div>
+                <label class="form-label" for="Name">Full Name:</label>
+                <input class="input-tag" type="text" id="Name" placeholder="Full Name" name="name" required>
+            </div>
+
+            <div>
+                <label class="form-label" for="mail">Email-id:</label>
+                <input class="input-tag" type="email" id="mail" placeholder="Email-id" name="email" required>
+            </div>
+
+            <div>
+                <label class="form-label">Rating:</label>
+                <input type="radio" id="1" name="rating" value="1">
+                <label class="radio-label" for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label class="radio-label" for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label class="radio-label" for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label class="radio-label" for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label class="radio-label" for="5">5</label>
+            </div>
+
+            <div>
+                <label class="form-label" for="suggestion">Suggestion:</label>
+                <textarea class="textareas" name="suggestion" placeholder="suggestion"></textarea>
+            </div>
+
+            <input class="buttons" type="submit">
+
+        </form>
+    </div>
+
+
+    <div id="price">
+        <div class="heading2">
+            <h1>Pricing</h1>
+        </div>
+        <div id="cycle" class="prices">
+            <h2 class="price-heading">CYCLE</h2>
+            <div class="price-highlit"><h1>100$ monthly</h1></div>
+            <p>$5 daily</p>
+            <p>$100 monthly</p>
+            <p>$500 yearly</p>
+            <input type="button" value="Purchase" class="purchasebutton">
+        </div>
+
+        
+        <div id="cycle" class="prices">
+            <h2 class="price-heading">MOTORCYCLE</h2>
+            <div class="price-highlit"><h1>200$ monthly</h1></div>
+            <p>$10 daily</p>
+            <p>$200 monthly</p>
+            <p>$1000 yearly</p>
+            <input type="button" value="Purchase" class="purchasebutton">
+        </div>
+
+        
+        <div id="cycle" class="prices">
+            <h2 class="price-heading ">FOURWHEELER</h2>
+            <div class="price-highlit"><h1>500$ monthly</h1></div>
+            <p>$20 daily</p>
+            <p>$500 monthly</p>
+            <p>$3500 yearly</p>
+            <input type="button" value="Purchase" class="purchasebutton">
+        </div>
+    </div>
+</body>
+
+</html>
