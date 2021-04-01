@@ -1,0 +1,333 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap'); */
+*{
+    font-family:"ubuntu"; 
+}
+body{
+   background-image: url('images/bodybg.png');
+   background-size: contain;
+   width: 100%;
+   height: 100%;
+   margin: 0%;
+   padding: 0%;
+}
+@font-face {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-style : normal;
+           src : url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0");
+           src : url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0") format("embedded-opentype"),
+                 url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0") format("woff2"),
+                 url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0") format("woff"),
+                 url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0") format("truetype"),
+                 url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
+  }  
+.home-background{
+    background-image: url('images/homebg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: auto;
+    height: fit-content;
+    padding-top: 2%;
+}
+
+.section{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.elements{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.menu, .app-symbol{
+    display: flex;
+    justify-content: space-around;
+}
+.logo-title{
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+.nav-item{
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
+    margin-right: 30%;
+    display: inline;
+}
+
+.social-app{
+    color:white;
+    margin-right: 50%;
+}
+
+.download-section{
+    display: flex;
+    margin-top: 10%;
+}
+.download-heading{
+    margin-right: 10%;
+}
+.download-heading> h1{
+    font-size:40px;
+    color: white;
+}
+.buttons{
+    display: flex;
+}
+.first-button{
+    width:fit-content;
+    background-color:#f14115;
+}
+.second-button{
+    margin-left: 5%;
+    width: fit-content;
+    background-color:#1111ff;
+}
+.task-action{
+    padding: 20px 20px 20px 20px;
+    border: none;
+    font-size: 15px;
+    margin-top: 20px;
+    text-decoration: none;
+    color:white;
+}
+.images{
+height: min-content;
+margin-bottom: 10%;
+}
+.feature-heading, .screenshot-heading, .review-heading{
+    margin-top: 10%;
+    text-align: center;
+}
+.feature-heading> h1 , .screenshot-heading> h1 , .review-heading>h1{
+    color: #11b4e6;
+    font-family: myFirstFont;
+}
+.feature-description{
+    display: flex;
+    justify-content: center;
+}
+.feature-box{
+    margin-top: 5%;
+    display: flex;
+}
+.feature-image{
+    opacity: 0.7;
+}
+.screenshot-images{
+    display: flex;
+    position: relative;
+}
+.screenshot-images1{
+    position: absolute;
+    margin-top: 22%;
+    height: 400px;
+    transform: skewY(5deg);
+    z-index: -2;
+}
+.screenshot-images2{
+    position: absolute;
+    margin-left: 10%;
+    margin-top: 20%;
+    height: 450px;
+    transform: skewY(5deg);
+    z-index: -1;
+}
+
+.screenshot-images3{
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 32%;
+}
+.screenshot-images4{
+    position: absolute;
+    margin-top: 20%;
+    margin-left: 67%;
+    height: 450px;
+    z-index: -1;
+    transform: skewY(-5deg);
+}
+.screenshot-images5{
+    position: absolute;
+    margin-top: 22%;
+    margin-left: 85%;
+    z-index: -2;
+    height: 400px;
+    transform: skewY(-5deg);
+}
+.screenshot{
+    margin-top:10%;
+}
+.screenshot-cloudy, .screenshot-sunny, .screenshot-rainy{
+    display: flex;
+    margin: 10%;
+}
+.cloudy-image , .sunny-image ,.rainy-image{
+    display: flex;
+    margin-right: 20%;
+}
+.cloudy-image> h1{
+    position:absolute;
+    font-size: 200px;
+    opacity: 0.2;
+    z-index: -2;
+    margin-left: 5%;
+    font-weight: normal;
+    transform: rotate(90deg);
+    font-family: mySecondFont;
+}
+.sunny-image> h1{
+    position:absolute;
+    font-size: 200px;
+    opacity: 0.2;
+    z-index: -2;
+    margin-left: 17%;
+    font-weight: normal;
+    transform: rotate(90deg);
+    font-family: mySecondFont;
+}
+.rainy-image> h1{
+    position:absolute;
+    font-size: 200px;
+    opacity: 0.2;
+    z-index: -2;
+    margin-left: 7%;
+    font-weight: normal;
+    transform: rotate(90deg);
+    font-family: mySecondFont;
+}
+.cloudy-image> img{
+    z-index: -1;
+    margin-left: 5%;
+}
+.sunny-image> img{
+    z-index: -1;
+    margin-left: 50%;
+}
+.status-cloudy{
+    border:white;
+    padding: 20px;
+    position: absolute;
+    height: min-content;
+    background-color: rgb(255, 217, 5);
+    color: white;
+    width: min-content;
+    margin-top: 11%;
+    margin-left: 20%;
+    border-radius: 50%;
+}
+.cloudy-temperature{
+    
+    border:white;
+    padding: 10px;
+    position: absolute;
+    height: min-content;
+    background-color:#6a6aff;
+    color: white;
+    width: min-content;
+    margin-top: 25%;
+    border-radius: 50%;
+
+}
+.status-sunny{
+    border:white;
+    padding: 20px;
+    position: absolute;
+    height: min-content;
+    background-color:#f08d0c;
+    color: white;
+    width: min-content;
+    margin-top: 11%;
+    margin-left: 30%;
+    border-radius: 50%;
+}
+.sunny-temperature{
+    border:white;
+    padding: 10px;
+    position: absolute;
+    height: min-content;
+    background-color:#d46031;
+    color: white;
+    width: min-content;
+    margin-top: 25%;
+    margin-left: 10%;
+    border-radius: 50%;
+
+}
+.status-rainy{
+    border:white;
+    padding: 20px;
+    position: absolute;
+    height: min-content;
+    background-color: rgb(63, 212, 238);
+    color: white;
+    width: min-content;
+    margin-top: 11%;
+    margin-left: 20%;
+    border-radius: 50%;
+}
+.rainy-temperature{
+    
+    border:white;
+    padding: 10px;
+    position: absolute;
+    height: min-content;
+    background-color:#2a2ae2;
+    color: white;
+    width: min-content;
+    margin-top: 25%;
+    border-radius: 50%;
+
+}
+.cloudy-description, .sunny-description, .rainy-description{
+    margin-top: 10%;
+    margin-left: 4%;
+}
+.cloudy-description>p , .sunny-description>p{
+    font-size: 15px;
+}
+
+
+
+.reviews{
+    display: flex;
+}
+.first-side-review ,.second-side-review{
+    margin: 5%;
+
+}
+.first-side-review q, .second-side-review q{
+    font-size: 20px;
+    color: #11b4e6;
+    font-family: myFirstFont;
+}
+.download-description{
+    width: 400px;
+}
+.download-description> h1 , .download-description> p{
+color: white;
+}
+.download-image> img{
+    width: 500px;
+    margin-left: 20%;
+}
+.logo-image{
+    margin-top: 10%;
+}
+.copy-right{
+    width:100%;
+    height: 100%;
+    background-color: #04010ab4;
+    padding-top: 2%;
+}
+.footer {
+    bottom: 0px;
+    width: 100%;
+    height:50px;
+    text-align: center;
+}
+.footer>p{
+    margin-top: 5%;
+    opacity: 0.5;
+}
