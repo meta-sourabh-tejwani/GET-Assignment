@@ -207,16 +207,17 @@ select * from orders order by order_total DESC limit 10;
 
 
 
-/*display all order which are placed more than 10 days old and one or more items from those order are still not placed*/
+/*display all order which are placed more than 10 days old and one or more items from those 
+order are still not placed*/
 select * from orderdetails where order_id IN
 (select order_id from orders where order_date <=DATE(CURDATE()-interval 10 day)
 and order_status like 'shipped') and product_status like 'not shipped';
 
-
-/*display list of shopper which have not ordered anything since last month*/
-select * from shopper where shopper_id IN(
+select * from shopper;
+/*display list of shopper which have not ordered anything since last month  change logic*/
+select * from shopper where shopper_id  not IN(
 select u.shopper_id from address u where u.address_id IN (
-select o.address_id from orders o where order_date<=DATE(CURDATE()-interval 1 month)));
+select o.address_id from orders o where order_date>=DATE(CURDATE()-interval 1 month)));
 
 /*display list of shopper along with order placed by them in last 15 days*/
 select shopper.user_name, orders.order_id from orders Inner join address Inner join shopper 
@@ -225,8 +226,10 @@ address.shopper_id=shopper.shopper_id and
 orders.order_date >=DATE(CURDATE()-interval 15 day);
 
 /*display list of order item which are in "shipped" state for particular order id 2*/
-select * from orderdetails where product_status like 'shipped' and order_id=2;
+select * from orderdetails where product_status = 'shipped' and order_id=2;
+
+select * from orderdetails where order_id=20;
 
 /*display list of order item along with order placed date which fall between rs 20 to rs 50*/
-select orderdetails.product_id,order_date from orders Inner Join orderdetails where 
+select orderdetails.order_id,orderdetails.product_id,order_date from orders Inner Join orderdetails where 
 orderdetails.order_id=orders.order_id and orders.order_total>=20 and orders.order_total<=50;

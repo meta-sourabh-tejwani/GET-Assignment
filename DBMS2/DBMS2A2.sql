@@ -133,9 +133,10 @@ insert into images(product_id) values(25);
 
 select * from products;
 
+use storefront;
 /*display id, title, category title,price of product which are active and recently added product should at top*/
 select p.product_id,p.product_title,c.category_title,p.product_price from products p ,categories c 
-where p.category_id=c.category_id
+where p.category_id=c.category_id and status='active'
 Order by p.product_id DESC;
 
 
@@ -147,12 +148,15 @@ select * from products
 where product_quantity<=50;
 
 /*display product title,price and description which fall into particular category Title "mobile" */
-select p.product_title,p.product_price from products p, categories c
+select p.product_id,p.product_title,p.product_price from products p, categories c
 where p.category_id = c.category_id AND c.category_title like 'mobile';
 
-/*Display Id, Title, Parent Category Title of all the leaf Categories (categories which are not parent of any other category)*/
-select p.product_id,p.product_title,c.category_title from products p, categories c
-where p.category_id = c.category_id AND c.parent_id IS NOT NULL;
+/*Display Id, Title, Parent Category Title of all the leaf Categories (categories which are not parent of any other
+category)   */
+select c1.category_id,c1.category_title,c2.category_title as parent_title from 
+categories c1 join categories c2
+on c1.parent_id=c2.category_id and c1.category_id not In
+(select Distinct ifnull(parent_id,0) as category_id from categories);
 
 
 
