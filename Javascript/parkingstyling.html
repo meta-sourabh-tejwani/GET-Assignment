@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Metacube parking System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div>
+        <div class="heading">
+            <h1>Welcome To The Metacube Parking System</h1>
+        </div>
+        <!--nav contain the image and navigation bar-->
+        <div class="image">
+            <nav class="element">
+                <a class="nav-element" href="#employee">Add Employee</a>
+                <a class="nav-element" href="#vehicle">Add Vehicle </a>
+                <a class="nav-element" href="#feedback"> Feedback </a>
+                <a class="nav-element" href="#price"> Pricing </a>
+            </nav>
+        </div>
+
+        <div class="section" id="employee">
+            <div class="employee-heading">
+                <h1 id="employee-description">Employee Details-</h1>
+            </div>
+            <form method="POST" id="employee-form">
+                <div id="after-each-data">
+                    <label class="message" id="name-label-test">Hello</label>
+                </div>
+                <div>
+                    <div id="before-name">
+                        <label class="form-label" for="Name">Full Name:</label>
+                        <input class="input-tag" type="text" id="Name" placeholder="Full Name" name="name"
+                     onchange="setEmployeeName(this)" required>
+                    </div>
+                </div>
+
+
+                <div id="before-gender">
+                    <label class="form-label">Gender:</label>
+                    <input type="radio" name="gender" value="male" onClick="setGender(this)">
+                    <label class="radio-label" for="Male">Male</label>
+                    <input type="radio" name="gender" value="female" onClick="setGender(this)">
+                    <label class="radio-label" for="Female">Female</label>
+                    <input type="radio" name="gender" value="others" onClick="setGender(this)">
+                    <label class="radio-label" for="Others">Others</label>
+                </div>
+
+                <div id="before-mail">
+                    <label class="form-label" for="mail">Email-id:</label>
+                    <input class="input-tag" type="email" id="mail" placeholder="Email-id" 
+                    onChange="setEmployeeMail(this)"
+                        name="email" required>
+                </div>
+
+                <div id="before-password">
+                    <label class="form-label" for="password">Password:</label>
+                    <input class="input-tag" type="password" id="password" placeholder="password" name="password"
+                    oninput="checkComplexity(this)"  onChange="setPassword(this)" required>
+                </div>
+
+                <div id="before-confirm-password">
+                    <label class="form-label" for="confirm-password">Confirm-Password:</label>
+                    <input class="input-tag" type="password" id="confirm-password" placeholder="Confirm-Password"
+                        name="confirm password" onChange="confirmPassword(this)" required>
+                </div>
+
+                <div id="before-contact">
+                    <label class="form-label" for="contact">Contact:</label>
+                    <input class="input-tag" type="text" id="Contact" onChange="contact(this)" placeholder="Number" name="number" required>
+                </div>
+
+                <div id="disable-button-employee"><input class="buttons" type="button" value="submit" onClick="setEmployee()">
+                </div>
+
+            </form>
+        </div>
+
+        <!--div contain the Vehicle Form-->
+        <div id="vehicle" class="section">
+            <div class="vehicle-heading">
+                <h1 id="vehicle-description">Vehicle Details-</h1>
+            </div>
+            <form id="vehicle-form">
+                <div id="after-each-vehicle-data">
+                    <label class="message" id="name-label-vehicle">Hello</label>
+                </div>
+                <div id="before-vehicle-name">
+                    <label class="form-label" for="company-name">Company Name:</label>
+                    <input class="input-tag" type="text" id="company-name" placeholder="Vehicle Name"
+                        name="vehicle name" onChange="vehicleBrand(this)" required>
+                </div>
+
+                <div id="before-vehicle-model">
+                    <label class="form-label" for="vehicle-model">Vehicle Model:</label>
+                    <input class="input-tag" type="text" id="vehicle-model" placeholder="Vehicle Model" name="model"
+                        onChange="vehicleModel(this)" required>
+                </div>
+
+                <div id="before-vehicle-type">
+                    <label class="form-label">Vehicle Type:</label>
+                    <input type="radio" name="vehicle" value="cycle" onClick="vehicleType(this)">
+                    <label class="radio-label" for="Cycle">Cycle</label>
+                    <input type="radio" name="vehicle" value="two-wheeler" onClick="vehicleType(this)">
+                    <label class="radio-label" for="Motor Cycle">Motor Cycle</label>
+                    <input type="radio" name="vehicle" value="four-wheeler" onClick="vehicleType(this)">
+                    <label class="radio-label" for="Four Wheeler">Four Wheeler</label>
+                </div>
+
+                <div id="before-vehicle-number">
+                    <label class="form-label" for="vehicle-number">Vehicle Number:</label>
+                    <input class="input-tag" type="text" id="vehicle-number" placeholder="Vehicle Number" name="number"
+                        onChange="vehicleNumber(this)" required>
+                </div>
+
+                <div id="before-emp-id">
+                    <label class="form-label" for="employee-id">Employee Id:</label>
+                    <input class="input-tag" type="text" id="employee-id" placeholder="Employee-id" name="employee id"
+                        required>
+                </div>
+
+                <div id="before-identification">
+                    <label class="form-label" for="identification">Identification:</label>
+                    <textarea class="textareas" name="identification" placeholder="Color,mark etc" id="vehicle-mark"
+                        onChange="vehicleIdentification(this)"></textarea>
+                </div>
+
+                <input id="disable-button-vehicle" class="buttons" type="button" value="submit" onClick="setVehicle()">
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="feedback" class="section">
+        <div class="feedback-heading">
+            <h1>Feedback Form</h1>
+        </div>
+        <form>
+            <div>
+                <label class="form-label" for="Name">Full Name:</label>
+                <input class="input-tag" type="text" id="Name" placeholder="Full Name" name="name" required>
+            </div>
+
+            <div>
+                <label class="form-label" for="mail">Email-id:</label>
+                <input class="input-tag" type="email" id="mail" placeholder="Email-id" name="email" required>
+            </div>
+
+            <div>
+                <label class="form-label">Rating:</label>
+                <input type="radio" id="1" name="rating" value="1">
+                <label class="radio-label" for="1">1</label>
+                <input type="radio" id="2" name="rating" value="2">
+                <label class="radio-label" for="2">2</label>
+                <input type="radio" id="3" name="rating" value="3">
+                <label class="radio-label" for="3">3</label>
+                <input type="radio" id="4" name="rating" value="4">
+                <label class="radio-label" for="4">4</label>
+                <input type="radio" id="5" name="rating" value="5">
+                <label class="radio-label" for="5">5</label>
+            </div>
+
+            <div>
+                <label class="form-label" for="suggestion">Suggestion:</label>
+                <textarea class="textareas" name="suggestion" placeholder="suggestion"></textarea>
+            </div>
+
+            <input class="buttons" type="submit">
+
+        </form>
+    </div>
+
+
+    <div id="price">
+        <div class="price-tag">
+            <h1 id="detail">Pricing</h1>
+        </div>
+        <div id="currency-declare">
+            <label for="currency">Change Currency:</label>
+            <select name="currency" id="currency" onclick="changeCurrency()">
+                <option value="RS">Rs.</option>
+                <option value="DOLLAR">Dollar</option>
+                <option value="YEN">Yen</option>
+            </select>
+        </div>
+        <div id="day-status" class="prices">
+            <h2 id="price-type-day">type</h2>
+            <h2>Day</h2>
+            <div class="price-highlit">
+                <h1 id="day">price</h1>
+            </div>
+            <input type="button" value="purchase" onClick="purchase_day()" class="purchasebutton">
+        </div>
+
+
+        <div id="month-status" class="prices">
+            <h2 id="price-type-month">type</h2>
+            <h2>Month</h2>
+            <div class="price-highlit">
+                <h1 id="month">price</h1>
+            </div>
+            <input type="button" value="purchase" onClick="purchase_month()" class="purchasebutton">
+        </div>
+
+
+        <div id="year-status" class="prices">
+            <h2 id="price-type-year">type</h2>
+            <h2>Year</h2>
+            <div class="price-highlit">
+                <h1 id="year">price</h1>
+            </div>
+            <input type="button" value="purchase" onClick="purchase_year()" class="purchasebutton">
+        </div>
+    </div>
+    <script src="Employee.js"></script>
+    <script src="vehicle.js"></script>
+    <script src="price.js"></script>
+</body>
+
+</html>
