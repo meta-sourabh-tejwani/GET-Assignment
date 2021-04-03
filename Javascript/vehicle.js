@@ -49,13 +49,11 @@ var vehicles;
 var company_name, model, type, vehicle_number, identification, emp_id;
 
 function setVehicle() {
-    emp_id = employees.employee_detail[0].id;
-    vehicles={"vehicle_detail": [{"company_name":company_name},{"model":model},
-    {"type":type},{"vehicle_number":vehicle_number},{"identification":identification}
-    ,{"emp_id":emp_id}]};
+    emp_id = employees["id"];
+    vehicles={"company_name":company_name,"model":model,
+    "type":type,"vehicle_number":vehicle_number,"identification":identification,"emp_id":emp_id};
     document.getElementById("vehicle-form").style.display = "none";
-    var text = "Vehicle Number-" + vehicles.vehicle_detail[0].vehicle_number;
+    var text = "Vehicle Number-" + vehicles["vehicle_number"];
     document.getElementById("vehicle-description").innerHTML = text;
     typeVehicle(type);
-
 }

@@ -102,12 +102,10 @@ function setEmployeeName(textbox) {
   var employees;
   
   function setEmployee() {
-    employees={"employee_detail": [{"id":employee_id++},{"name":employee_name},{"gender":employee_gender},
-                  {"mail":email},{"password":employee_password},{"contact":contact_number}                    
-              ]};
+    employees={"id":employee_id++,"names":employee_name,"gender":employee_gender,
+                  "email":email,"password":employee_password,"contact":contact_number};
    document.getElementById("employee-form").style.display = "none";         
-    var text = "Employee id-" + employees.employee_detail[0].id;
-    console.log(employees.employee_detail[0].id);
+    var text = "Employee id-" + employees["id"];
     document.getElementById("employee-description").innerHTML = text;
     document.getElementById("vehicle").style.display = 'block';
   }

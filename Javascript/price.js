@@ -109,9 +109,7 @@ function purchase_day()
 {
     pass_status="day";
     payment=convertUSD("day");
-    prices={"price_detail": [{"id":employees.employee_detail[0].id},    
-                {"vehicle_type":type},{"pass_status":pass_status},
-            {"payment_complete":payment}]};
+    prices={"id":employees["id"],"vehicle_type":type,"pass_status":pass_status,"payment_complete":payment};
     document.getElementById("currency-declare").style.display="none";
     document.getElementById("day-status").style.display="none";
     document.getElementById("month-status").style.display="none";
@@ -123,9 +121,7 @@ function purchase_month()
 {
     pass_status="month";
     payment=convertUSD("month");
-    prices={"price_detail": [{"id":employees.employee_detail[0].id},    
-                {"vehicle_type":type},{"pass_status":pass_status},
-            {"payment_complete":payment}]};
+    prices={"id":employees["id"],"vehicle_type":type,"pass_status":pass_status,"payment_complete":payment};
     document.getElementById("currency-declare").style.display="none";
     document.getElementById("day-status").style.display="none";
     document.getElementById("month-status").style.display="none";
@@ -137,9 +133,7 @@ function purchase_year()
 {
     pass_status="year";
     payment=convertUSD("year");
-    prices={"price_detail": [{"id":employees.employee_detail[0].id},    
-                {"vehicle_type":type},{"pass_status":pass_status},
-            {"payment_complete":payment}]};
+    prices={"id":employees["id"],"vehicle_type":type,"pass_status":pass_status,"payment_complete":payment};
     document.getElementById("currency-declare").style.display="none";
     document.getElementById("day-status").style.display="none";
     document.getElementById("month-status").style.display="none";
